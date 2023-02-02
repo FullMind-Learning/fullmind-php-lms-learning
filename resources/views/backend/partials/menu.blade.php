@@ -44,7 +44,7 @@
                     <ul class="nav navbar-nav mr-auto nav-buttons flex-sm-row">
 
                         <li class="nav-item">
-                            <a target="_blank" class="primary-btn white mr-10"
+                            <a target="_blank" class="primary-btn white mr-10 view_website"
                                href="{{url('/')}}">{{__('common.Website')}}</a>
                         </li>
 
@@ -80,7 +80,7 @@
                             <!-- Menu_NOtification_Wrap  -->
                             <div class="Menu_NOtification_Wrap notifications_wrap">
                                 <div class="notification_Header">
-                                    <h4>{{__('common.Notifications')}}</h4>
+                                    <h4>Notificaciones</h4>
                                 </div>
                                 <div class="Notification_body">
                                     <!-- single_notify  -->
@@ -99,16 +99,16 @@
                                             </a>
                                         </div>
                                     @empty
-                                        <span class="text-center">{{__('common.No Unread Notification')}}</span>
+                                        <span class="text-center">Sin notificaciones</span>
                                     @endforelse
 
                                 </div>
                                 <div class="nofity_footer">
                                     <div class="submit_button text-center pt_20">
                                         <a href="{{route('MyNotification')}}"
-                                           class="primary-btn radius_30px text_white  fix-gr-bg">{{__('common.See More')}}</a>
+                                           class="primary-btn radius_30px text_white  fix-gr-bg">Ver más</a>
                                         <a href="{{route('NotificationMakeAllRead')}}" id="mark_all_as_read"
-                                           class="primary-btn radius_30px text_white  fix-gr-bg">{{__('common.Mark As Read')}}</a>
+                                           class="primary-btn radius_30px text_white  fix-gr-bg">Marcar como leido</a>
                                     </div>
                                 </div>
                             </div>

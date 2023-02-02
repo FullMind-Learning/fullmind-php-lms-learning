@@ -93,7 +93,7 @@ class LoginController extends Controller
     protected function sendSuccessResponse()
     {
         if (Auth::user()->role_id == 3) {
-            return redirect()->intended('student-dashboard');
+            return redirect()->intended('my-courses');
         } else {
             return redirect()->intended('home');
         }
@@ -168,7 +168,7 @@ class LoginController extends Controller
     public function redirectPath()
     {
         if (Auth::user()->role_id == 3) {
-            $path = route('studentDashboard');
+            $path = route('myCourses');
 
             if (Settings('customize_org_chart_branch_navigate') == 1 && Settings('org_student_special_branch') == Auth::user()->org_chart_code) {
                 if (Settings('navigate_special_branch_after_login') == 'homepage') {
@@ -691,7 +691,7 @@ class LoginController extends Controller
 
             } else {
                 $user = User::where('role_id', 3)->first();
-                $url = route('studentDashboard');
+                $url = route('myCourses');
             }
             Auth::loginUsingId($user->id);
             return redirect()->to($url);

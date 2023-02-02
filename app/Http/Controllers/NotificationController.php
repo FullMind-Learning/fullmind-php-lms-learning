@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Modules\CourseSetting\Entities\Notification;
-use Modules\Noticeboard\Entities\Noticeboard;
 
 class NotificationController extends Controller
 {
@@ -56,34 +55,6 @@ class NotificationController extends Controller
             return view(theme('pages.myNotifications'), compact('request'));
         } catch (\Exception $e) {
             GettingError($e->getMessage(), url()->current(), request()->ip(), request()->userAgent());
-        }
-    }
-
-    public function myNoticeboard(Request $request)
-    {
-        if (!Auth::check()) {
-            return redirect('login');
-        }
-        try {
-            return view(theme('pages.myNoticeboard'), compact('request'));
-        } catch (\Exception $e) {
-            GettingError($e->getMessage(), url()->current(), request()->ip(), request()->userAgent());
-        }
-    }
-
-    public function showNoticeboard($id)
-    {
-        try {
-            $user = Auth::user();
-            $courseIds = Auth::user()->studentCourses->pluck('course_id')->toArray();
-            $noticeboard = Noticeboard::where('status', 1)->with('noticeType', 'assign', 'assign.course')
-                ->whereHas('assign', function ($q) use ($courseIds, $user) {
-                    $q->whereIn('course_id', $courseIds);
-                    $q->orWhere('role_id', $user->role_id);
-                })->findOrFail($id);
-            return view(theme('partials._noticeboard_modal'), compact('noticeboard', 'courseIds'));
-        } catch (\Exception $e) {
-            return response([], 404);
         }
     }
 

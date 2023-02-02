@@ -11,21 +11,20 @@
                             </div> --}}
                             <x-student-profile-image-update :profile="$profile"/>
                             <h4>{{$profile->name}}</h4>
-                            <p>{{$profile->headline}}</p>
                         </div>
                         <div class="account_profile_form">
-                            <h3 class="font_22 f_w_700 mb_30">{{__('frontendmanage.My Profile')}}</h3>
+                            <h3 class="font_22 f_w_700 mb_30">Mi perfil</h3>
 
                             <form action="{{route('myProfileUpdate')}}" method="POST"
                                   enctype="multipart/form-data">@csrf
                                 <div class="row">
                                     <input type="hidden" name="username" value="{{$profile->email}}">
                                     <div class="col-lg-12">
-                                        <label class="primary_label2">{{__('student.Full Name')}}
+                                        <label class="primary_label2">Nombre completo
                                             <span>*</span></label>
-                                        <input name="name" placeholder="{{__('frontend.Enter First Name')}}"
+                                        <input name="name" placeholder="Escribe tu nombre"
                                                onfocus="this.placeholder = ''"
-                                               onblur="this.placeholder = '{{__('frontend.Enter First Name')}}'"
+                                               onblur="this.placeholder = 'Escribe tu nombre'"
                                                class="primary_input4" {{$errors->first('name') ? 'autofocus' : ''}}
                                                {{ !$custom_field->editable_name ? 'readonly' : '' }}
                                                value="{{$profile->name !=""? @$profile->name:old('name')}}" type="text">
@@ -34,11 +33,10 @@
 
 
                                     <div class="col-lg-12 mt_20">
-                                        <label class="primary_label2">{{__('student.Add a professional headline like')}}
-                                            ({{__('student.Student')}})</label>
-                                        <input name="headline" placeholder="{{__('student.Headline')}}"
+                                        <label class="primary_label2">Profesión</label>
+                                        <input name="headline" placeholder="Profesión"
                                                onfocus="this.placeholder = ''"
-                                               onblur="this.placeholder = '{{__('student.Headline')}}'"
+                                               onblur="this.placeholder = 'Profesión'"
                                                class="primary_input4" type="text"
                                                value="{{$profile->headline !=""? @$profile->headline:old('headline')}}">
                                         <span class="text-danger" role="alert">{{$errors->first('headline')}}</span>
@@ -47,8 +45,8 @@
 
                                     <div class="col-lg-6 col-md-6 mt_20">
                                         <div class="single_input ">
-                                            <span class="primary_label2">{{__('student.Phone Number')}} </span>
-                                            <input type="text" placeholder="{{__('student.Phone Number')}}"
+                                            <span class="primary_label2">Número de teléfono </span>
+                                            <input type="text" placeholder="Número de teléfono"
                                                    class="primary_input4  {{ @$errors->has('phone') ? ' is-invalid' : '' }}"
                                                    value="{{$profile->phone !=""? @$profile->phone:old('phone')}}"
                                                    name="phone" {{$errors->first('phone') ? 'autofocus' : ''}}>
@@ -58,9 +56,9 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 mt_20">
                                         <div class="single_input ">
-                                            <span class="primary_label2">{{__('common.Email')}} <span
+                                            <span class="primary_label2">Correo electrónico<span
                                                     class=""> *</span></span>
-                                            <input type="email" placeholder="{{__('common.Email')}}"
+                                            <input type="email" placeholder="Correo electrónico"
                                                    class="primary_input4 {{ @$errors->has('email') ? ' is-invalid' : '' }}"
                                                    value="{{$profile->email !=""? @$profile->email:old('email')}}"
                                                    name="email" {{$errors->first('email') ? 'autofocus' : ''}}>
@@ -68,7 +66,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-lg-6 col-md-6 mt_20">
+                                    <!--<div class="col-lg-6 col-md-6 mt_20">
                                         <div class="single_input ">
                                             <span class="primary_label2">{{__('common.Language')}}  <span
                                                     class=""> *</span> </span>
@@ -286,13 +284,13 @@
                                             <span class="text-danger" role="alert">{{$errors->first('zip')}}</span>
                                         </div>
 
-                                    </div>
+                                    </div>-->
                                     <div class="col-lg-12 mt_20 mb-3">
-                                        <label class="primary_label2">{{__('common.About')}}</label>
+                                        <label class="primary_label2">Acerca de mi</label>
                                         <textarea name="about" class="primary_textarea4 mb_20"
-                                                  placeholder="{{__('student.Write Note here')}}"
+                                                  placeholder="Acerca de mi"
                                                   onfocus="this.placeholder = ''"
-                                                  onblur="this.placeholder = '{{__('student.Write Note here')}}'">{!! $profile->about !=""? @$profile->about:old('about') !!}</textarea>
+                                                  onblur="this.placeholder = 'Acerca de mi'">{!! $profile->about !=""? @$profile->about:old('about') !!}</textarea>
                                     </div>
 
                                     <div class="col-12">
@@ -300,7 +298,7 @@
                                             <div class="preview_upload_thumb">
                                                 <img src="" alt="" id="imgPreview"
                                                      style=" display:none;height: 100%;width: 100%;">
-                                                <span id="previewTxt">{{__('student.Preview')}}</span>
+                                                <span id="previewTxt">Vista previa</span>
                                             </div>
                                             <div class="preview_drag">
                                                 <div class="preview_drag_inner">
@@ -309,22 +307,22 @@
                                                             src="{{asset('public/frontend/infixlmstheme')}}/img/account/gallery_icon.png"
                                                             alt="">
                                                     </div>
-                                                    <p>{{__('student.Drop your file here')}}</p>
-                                                    <small>{{__('student.Recommended image size')}} (330x400)</small>
+                                                    <p>Suelta aqui tu foto</p>
+                                                    <small>Tamaño recomendado 300x400</small>
                                                     <div class="chose_file">
                                                         <input type="file" name="image" id="imgInp"
                                                                onchange="readURL(this)">
-                                                        {{__('student.or choose files to upload')}}
+                                                       O selecciona un archivo para subir
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <h3 class="font_22 f_w_700 mb_30">{{__('student.Social Links')}}</h3>
+                                <<h3 class="font_22 f_w_700 mb_30">Redes sociales</h3>
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <label class="primary_label2">{{__('student.Add your Facebook URL')}}</label>
+                                        <label class="primary_label2">Perfil de facebook</label>
                                         <div class="input-group custom_input_group mb_20">
                                             <div class="input-group-prepend">
 
@@ -339,7 +337,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <label class="primary_label2">{{__('student.Add your Twitter URL')}}</label>
+                                        <label class="primary_label2">Usuario de Twitter</label>
                                         <div class="input-group custom_input_group mb_20">
                                             <div class="input-group-prepend">
                                                     <span class="input-group-text twitter_bg"> <i
@@ -354,7 +352,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <label class="primary_label2">{{__('student.Add your LinkedIn URL')}}</label>
+                                        <label class="primary_label2">Perfil de Linkedin</label>
                                         <div class="input-group custom_input_group mb_20">
                                             <div class="input-group-prepend">
                                                     <span class="input-group-text linkedin_bg"> <i
@@ -369,7 +367,7 @@
                                     </div>
 
                                     <div class="col-lg-12">
-                                        <label class="primary_label2">{{__('student.Add your Youtube URL')}}</label>
+                                        <label class="primary_label2">Canal de youtube</label>
                                         <div class="input-group custom_input_group mb_20">
                                             <div class="input-group-prepend">
                                                     <span class="input-group-text youtube_bg"> <i
@@ -385,7 +383,7 @@
                                     </div>
                                     <div class="col-12">
                                         <button
-                                            class="theme_btn w-100 text-center mt_40">{{__('student.Save')}}</button>
+                                            class="theme_btn w-100 text-center mt_40">Guardar</button>
                                     </div>
                                 </div>
                             </form>

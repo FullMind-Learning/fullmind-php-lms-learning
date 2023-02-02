@@ -221,8 +221,5 @@
     'email.required_without' => 'The Email is required',
     'username.required_without' => 'The username is required',
     'country.required' => 'The Country field is required',
-    'course_id.required' => 'Course field is required',
-    'role_id.required' => 'Role field is required',
-    'color.required' => 'Role field is required',
 
 );

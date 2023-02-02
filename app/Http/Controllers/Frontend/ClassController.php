@@ -12,7 +12,6 @@ use Modules\Certificate\Entities\CertificateRecord;
 use Modules\CourseSetting\Entities\Course;
 use Modules\CourseSetting\Entities\CourseComment;
 use Modules\FrontendManage\Entities\FrontPage;
-use Modules\InAppLiveClass\Entities\InAppLiveClassMeeting;
 use Modules\Jitsi\Entities\JitsiMeeting;
 use Modules\VirtualClass\Entities\ClassComplete;
 use Modules\Zoom\Entities\ZoomMeeting;
@@ -171,11 +170,6 @@ class ClassController extends Controller
                 $meeting = JitsiMeeting::find($meeting_id);
                 if ($meeting) {
                     return redirect(url('jitsi/meeting-start/' . $course->id . '/' . $meeting->meeting_id));
-                }
-            } elseif ($host == "InAppLiveClass") {
-                $meeting = InAppLiveClassMeeting::find($meeting_id);
-                if ($meeting) {
-                    return redirect(route('inappliveclass.meetings.show',$meeting_id));
                 }
             }
             return redirect()->back();

@@ -55,6 +55,10 @@
             max-height: 320px;
             overflow: auto;
         }
+        
+        .primary_checkbox .checkmark {
+display:none;
+}
     </style>
 @endsection
 
@@ -97,7 +101,7 @@
                             <!-- header__left__start  -->
                             <div class="header__left d-flex align-items-center">
                                 <div class="logo_img">
-                                    <a href="{{url('/')}}">
+                                    <a href="{{url('/dashboard')}}">
                                         <img class="p-2" style="width: 200px"
                                              src="{{getCourseImage(Settings('logo') )}}"
                                              alt="{{ Settings('site_name')  }}">
@@ -129,7 +133,7 @@
                                                 <div class="slider round"></div>
 
                                             </label>
-                                            <span class="pl-2 text-nowrap">Auto Next</span>
+                                            <span class="pl-2 text-nowrap">Avance autómatico</span>
 
                                             <div class="pl-20 text-right ml-3 d-flex align-items-center">
                                                 @php
@@ -141,22 +145,22 @@
                                                 @endphp
                                                 @if (0==array_search($current_page,$lesson_ids))
                                                     <a href="#" disabled="disabled"
-                                                       class="theme_btn theme_button_disabled small_btn2 p-2 m-1 disabled">Previous</a>
+                                                       class="theme_btn theme_button_disabled small_btn2 p-2 m-1 disabled">Anterior</a>
                                                 @else
                                                     <a href="#"
                                                        onclick="goFullScreen({{$course->id}},{{$lesson_ids[$current_index-1]}})"
-                                                       class="theme_btn small_btn2 p-2 m-1">Previous</a>
+                                                       class="theme_btn small_btn2 p-2 m-1">Anterior</a>
                                                 @endif
 
                                                 @if (array_search($current_page,$lesson_ids) < array_search(end($lesson_ids),$lesson_ids) )
 
                                                     <a href="#" id="next_lesson_btn"
                                                        onclick="goFullScreen({{$course->id}},{{$lesson_ids[$current_index+1]}})"
-                                                       class="theme_btn small_btn2 p-2 m-1">Next</a>
+                                                       class="theme_btn small_btn2 p-2 m-1">Siguiente</a>
                                                 @else
                                                     <a href="#" disabled
                                                        class="theme_btn theme_button_disabled small_btn2 p-2 m-1 disabled"
-                                                       style="opacity: 1">Next</a>
+                                                       style="opacity: 1">Siguiente</a>
                                                 @endif
                                             </div>
                                         @endif
@@ -169,7 +173,7 @@
                                                        data-target="#courseRating"
                                                        class="  headerSub p-2 mr-3 text-nowrap">
                                                         <i class="fa fa-star pr-2"></i>
-                                                        {{__('frontend.Leave a rating')}}
+                                                        Deja un comentario
 
                                                     </a>
 
@@ -198,7 +202,7 @@
                                            data-target="#ShareLink"
                                            class="theme_btn small_btn2 p-2 m-1">
                                             <i class="fa fa-share"></i>
-                                            Share
+                                            Compartir
                                         </a>
                                     </div>
                                 </div>
@@ -255,7 +259,7 @@
                     @if(!isset($_GET['done']))
                         <!-- quiz_test_header  -->
                         <div class="quiz_test_header">
-                            <h3>{{__('student.Your Exam Score')}}</h3>
+                            <h3>Resultado de tu evaluación</h3>
                         </div>
 
                         <div class="quiz_test_body">
@@ -266,14 +270,14 @@
                                         <div class="col-xl-12">
                                             <div class="score_view_wrapper">
                                                 <div class="single_score_view">
-                                                    <p>{{__('student.Exam Score')}}:</p>
+                                                    <p>Puntuación</p>
                                                     <ul>
                                                         <li class="mb_15">
                                                             <label class="primary_checkbox2 d-flex">
                                                                 <input checked="" type="checkbox" disabled>
                                                                 <span class="checkmark mr_10"></span>
                                                                 <span
-                                                                    class="label_name">{{$result['totalCorrect']}} {{__('student.Correct Answer')}}</span>
+                                                                    class="label_name">{{$result['totalCorrect']}} Respuesta correcta</span>
                                                             </label>
                                                         </li>
                                                         <li>
@@ -282,7 +286,7 @@
                                                                        disabled>
                                                                 <span class="checkmark mr_10"></span>
                                                                 <span
-                                                                    class="label_name">{{$result['totalWrong']}} {{__('student.Wrong Answer')}}</span>
+                                                                    class="label_name">{{$result['totalWrong']}} Respuesta incorrecta</span>
                                                             </label>
                                                         </li>
                                                     </ul>
@@ -1245,7 +1249,7 @@
                     <a href="{{courseDetailsUrl(@$course->id,@$course->type,@$course->slug)}}" class="theme_btn_mini">
                         <i class="fas fa-arrow-left"></i>
                     </a>
-                    {{@$total}} {{__('common.Lessons')}}</h3>
+                    {{@$total}} Lecciones</h3>
             </div>
             <div class="course__play_list">
                 @php
@@ -1264,7 +1268,7 @@
                                             aria-controls="collapse{{$chapter->id}}">
                                         {{$chapter->name}} <br>
                                         <span
-                                            class="course_length nowrap"> {{count($chapter->lessons)}} {{__('frontend.Lectures')}}</span>
+                                            class="course_length nowrap"> {{count($chapter->lessons)}} Lecciones</span>
                                     </button>
                                 </h5>
                             </div>
@@ -1453,7 +1457,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        {{__('frontend.Share this course')}}
+                        Compartir este curso
 
                     </h5>
                 </div>

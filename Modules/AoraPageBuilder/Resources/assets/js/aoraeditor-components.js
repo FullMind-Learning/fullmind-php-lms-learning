@@ -255,7 +255,7 @@
                 }));
                 var l = c.a.inline(a[0], this.options);
                 l.on("instanceReady", (function () {
-                    $('.aora-update-btn').removeClass('disable-btn')
+                    $('.aora-update-btn').addClass('disable-btn')
                     $('.aora-update-btn').attr('disable', true)
                     $("#cke_" + a.attr("id")).appendTo(n.wrapper), "function" == typeof i.onComponentReady && i.onComponentReady.call(t, e, l)
                 }))
@@ -264,7 +264,6 @@
                     $('.aora-update-btn').attr('disable', false)
                 }))
                     , l.on("key", (function (t) {
-                    $('.aora-update-btn').removeClass('disable-btn')
                     (t.data.domEvent.$.ctrlKey && 86 === t.data.domEvent.$.keyCode || 13 === t.data.domEvent.$.keyCode) && (console.log("Dont scroll!!"), n.iframeBody.scrollTop($(l.element.$).offset().top), setTimeout((function () {
                     }), 10))
                 }), l)

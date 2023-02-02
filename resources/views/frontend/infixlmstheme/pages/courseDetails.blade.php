@@ -25,7 +25,7 @@
 @section('mainContent')
 
     <x-breadcrumb :banner="$frontendContent->course_page_banner"
-                  :title="trans('frontend.Course Details')"
+                  :title="trans('Detalles del curso')"
                   :subTitle="$course->title"/>
 
 

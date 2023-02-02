@@ -829,8 +829,8 @@
         enroll_count.push('{{$val}}');
         @endforeach
         var ctx = document.getElementById('enroll_overview').getContext('2d');
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
+        const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
         ];
 
         @if (permissionCheck('dashboard.daily_wise_enroll'))

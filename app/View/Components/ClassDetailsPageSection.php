@@ -12,7 +12,6 @@ use Modules\Certificate\Entities\Certificate;
 use Modules\CourseSetting\Entities\Category;
 use Modules\CourseSetting\Entities\Course;
 use Modules\CourseSetting\Entities\CourseEnrolled;
-use Modules\InAppLiveClass\Entities\InAppLiveClassMeeting;
 use Modules\Jitsi\Entities\JitsiMeeting;
 use Modules\Payment\Entities\Cart;
 use Modules\StudentSetting\Entities\BookmarkCourse;
@@ -105,19 +104,6 @@ class ClassDetailsPageSection extends Component
                 if (isModuleActive("Jitsi")) {
 
                     $nextMeeting = JitsiMeeting::where('class_id', $this->course->class->id)->where('date', date('m/d/Y'))->first();
-                    if ($nextMeeting) {
-                        $nextMeeting->isRunning = true;
-                    }
-                    $this->course->nextMeeting = $nextMeeting;
-
-                } else {
-                    Toastr::error('Module is not activated', 'Failed');
-                }
-
-            }elseif ($this->course->class->host == "InAppLiveClass") {
-                if (isModuleActive("InAppLiveClass")) {
-
-                    $nextMeeting = InAppLiveClassMeeting::where('class_id', $this->course->class->id)->where('date', date('m/d/Y'))->first();
                     if ($nextMeeting) {
                         $nextMeeting->isRunning = true;
                     }

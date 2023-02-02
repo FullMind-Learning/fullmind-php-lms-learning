@@ -23,10 +23,6 @@
     <script src="{{ asset('public/frontend/infixlmstheme') }}/js/gijgo.min.js"></script>
     <link rel="stylesheet" href="{{asset('public/backend/css/themify-icons.css')}}"/>
     <link rel="stylesheet" href="{{asset('public/css/preloader.css')}}"/>
-    <script>
-        window._locale = '{{ app()->getLocale() }}';
-        window._translations = {!! json_encode(cache('translations'), JSON_INVALID_UTF8_IGNORE) !!}
-    </script>
 </head>
 
 <body>

@@ -10,7 +10,7 @@
                             <div class="thumb"
                                  style="background-image: url('{{getInstructorImage(@$course->user->image)}}')"></div>
                             <div class="details_content">
-                                <span>{{__('frontend.Instructor Name')}}</span>
+                                <span>Instructor:</span>
                                 <a href="{{route('instructorDetails',[$course->user->id,$course->user->name])}}">
                                     <h4 class="f_w_700">{{@$course->user->name}}</h4>
                                 </a>
@@ -18,13 +18,13 @@
                         </div>
                         <div class="single__details">
                             <div class="details_content">
-                                <span>{{__('frontend.Category')}}</span>
+                                <span>Categoría</span>
                                 <h4 class="f_w_700">{{@$course->category->name}}</h4>
                             </div>
                         </div>
                         <div class="single__details">
                             <div class="details_content">
-                                <span>{{__('frontend.Reviews')}}</span>
+                                <span>Reseña</span>
 
 
                                 <div class="rating_star">
@@ -51,7 +51,7 @@
                                         @endif
                                     </div>
                                     <p>{{@$userRating['rating']}}
-                                        ({{@$userRating['total']}} {{__('frontend.Rating')}})</p>
+                                        ({{@$userRating['total']}})</p>
                                 </div>
                             </div>
                         </div>
@@ -97,17 +97,17 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" id="Overview-tab" data-toggle="tab" href="#Overview"
                                            role="tab" aria-controls="Overview"
-                                           aria-selected="true">{{__('frontend.Overview')}}</a>
+                                           aria-selected="true">Detalles del curso</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="Curriculum-tab" data-toggle="tab" href="#Curriculum"
                                            role="tab" aria-controls="Curriculum"
-                                           aria-selected="false">{{__('frontend.Curriculum')}}</a>
+                                           aria-selected="false">Lecciones</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="Instructor-tab" data-toggle="tab" href="#Instructor"
                                            role="tab" aria-controls="Instructor"
-                                           aria-selected="false">{{__('frontend.Instructor')}}</a>
+                                           aria-selected="false">Instructor</a>
                                     </li>
                                     @if(Settings('hide_review_section')!='1')
                                         <li class="nav-item">
@@ -134,7 +134,7 @@
                                         <div class="single_overview">
 
                                             @if(!empty($course->requirements))
-                                                <h4 class="font_22 f_w_700 mb_20">{{__('frontend.Course Requirements')}}</h4>
+                                                <h4 class="font_22 f_w_700 mb_20">Requisitos del curso</h4>
                                                 <div class="theme_border"></div>
                                                 <div class="row">
                                                     <div class="col-12">
@@ -149,7 +149,7 @@
                                             @endif
 
                                             @if(!empty($course->about))
-                                                <h4 class="font_22 f_w_700 mb_20">{{__('frontend.Course Description')}}</h4>
+                                                <h4 class="font_22 f_w_700 mb_20">Descripción del curso</h4>
                                                 <div class="theme_border"></div>
                                                 <div class="row">
                                                     <div class="col-12">
@@ -205,7 +205,7 @@
                                 <div class="tab-pane fade " id="Curriculum" role="tabpanel"
                                      aria-labelledby="Curriculum-tab">
                                     <!-- content  -->
-                                    <h4 class="font_22 f_w_700 mb_20">{{__('frontend.Course Curriculum')}}</h4>
+                                    <h4 class="font_22 f_w_700 mb_20">Lecciones del curso</h4>
                                     <div class="theme_according mb_30" id="accordion1">
                                         @if(isset($course->chapters))
                                             @foreach($course->chapters as $chapter)
@@ -220,7 +220,7 @@
                                                                     aria-controls="collapse{{$chapter->id}}">
                                                                 {{$chapter->name}}
                                                                 <span
-                                                                    class="course_length"> {{count($chapter->lessons)}} {{__('frontend.Lectures')}}</span>
+                                                                    class="course_length"> {{count($chapter->lessons)}} Lecciones</span>
                                                             </button>
                                                         </h5>
                                                     </div>
@@ -337,7 +337,7 @@
                                                                                        data-course="{{$course->id}}"
                                                                                        data-lesson="{{$lesson->id}}"
                                                                                        class="theme_btn_lite goFullScreen"
-                                                                                    >{{__('frontend.Preview')}}</a>
+                                                                                    >Previa</a>
                                                                                 @else
                                                                                     <a href="#"
                                                                                        class="theme_btn_lite quizLink"
@@ -353,7 +353,7 @@
                                                                                            data-course="{{$course->id}}"
                                                                                            data-lesson="{{$lesson->id}}"
                                                                                            class="theme_btn_lite goFullScreen"
-                                                                                        >{{__('common.View')}}</a>
+                                                                                        >Ver</a>
                                                                                     @else
                                                                                         <a href="#"
                                                                                            onclick="goFullScreen({{$course->id}},{{$lesson->id}})"
@@ -497,19 +497,19 @@
                                                 <div class="intractor_qualification">
                                                     <div class="single_qualification">
                                                         <i class="ti-star"></i> {{@$userRating['rating']}}
-                                                        {{__('frontend.Rating')}}
+                                                        Puntuación
                                                     </div>
                                                     <div class="single_qualification">
                                                         <i class="ti-comments"></i> {{@$userRating['total']}}
-                                                        {{__('frontend.Reviews')}}
+                                                        Reseñas
                                                     </div>
                                                     <div class="single_qualification">
                                                         <i class="ti-user"></i> {{@$course->user->totalEnrolled()}}
-                                                        {{__('frontend.Students')}}
+                                                        Estudiantes
                                                     </div>
                                                     <div class="single_qualification">
                                                         <i class="ti-layout-media-center-alt"></i> {{@$course->user->totalCourses()}}
-                                                        {{__('frontend.Courses')}}
+                                                        Cursos
                                                     </div>
                                                 </div>
                                             </div>
@@ -518,7 +518,7 @@
                                             {!! @$course->user->about !!}
                                         </p>
                                     </div>
-                                    <div class="author_courses">
+                                   <!-- <div class="author_courses">
                                         <div class="section__title mb_80">
                                             <h3>{{__('frontend.More Courses by Author')}}</h3>
                                         </div>
@@ -574,7 +574,7 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                    </div>
+                                    </div>-->
                                 </div>
                                 <div class="tab-pane fade " id="Reviews" role="tabpanel" aria-labelledby="Reviews-tab">
                                     <!-- content  -->
@@ -920,26 +920,26 @@
                                             {{getPriceFormat($course->price)}}
                                         @endif
                                     </h3>
-                                    <p>
+                                   <!-- <p>
                                         @if (Auth::check() && $isBookmarked )
                                             <i class="fas fa-heart"></i>
                                             <a href="{{route('bookmarkSave',[$course->id])}}"
-                                               class="">{{__('frontend.Already In Wishlist')}}
+                                               class="">Ya se encuentra en tu lista de deseos
                                             </a>
                                         @elseif (Auth::check() && !$isBookmarked )
                                             <a href="{{route('bookmarkSave',[$course->id])}}"
                                                class="">
                                                 <i class="far fa-heart"></i>
-                                                {{__('frontend.Add To Wishlist')}}  </a>
+                                                Agregar a lista de deseos</a>
                                         @endif
-                                    </p>
+                                    </p>-->
                                 </div>
 
                                 @if(!onlySubscription())
                                     @if (Auth::check())
                                         @if ($isEnrolled)
                                             <a href="{{route('continueCourse',[$course->slug])}}"
-                                               class="theme_btn d-block text-center height_50 mb_10">{{__('common.Continue Watch')}}</a>
+                                               class="theme_btn d-block text-center height_50 mb_10">Ver curso</a>
                                         @else
                                             @if($isFree)
 
@@ -987,30 +987,26 @@
                                     @endif
                                 @endif
                                 <p class="font_14 f_w_500 text-center mb_30"></p>
-                                <h4 class="f_w_700 mb_10">{{__('frontend.This course includes')}}:</h4>
+                                <h4 class="f_w_700 mb_10">Caracteristicas del curso:</h4>
                                 <ul class="course_includes">
                                     <li><i class="ti-alarm-clock"></i>
-                                        <p class="nowrap"> {{ __('frontend.Duration') }} {{MinuteFormat($course->duration)}}
+                                        <p class="nowrap"> Duración: {{MinuteFormat($course->duration)}}
 
                                         </p></li>
-                                    <li><i class="ti-thumb-up"></i>
-                                        <p>{{__('frontend.Skill Level')}}
+                                    <!--<li><i class="ti-thumb-up"></i>
+                                        <p>Nivel:
                                             @foreach($levels as $level)
                                                 @if (@$course->level==$level->id)
                                                     {{ $level->title}}
                                                 @endif
                                             @endforeach
-                                        </p></li>
+                                        </p></li>-->
                                     <li><i class="ti-agenda"></i>
-                                        <p>{{__('frontend.Lectures')}} {{count($course->lessons)}} {{__('frontend.lessons')}}</p>
+                                        <p>Lecciones: {{count($course->lessons)}} Lecciones</p>
                                     </li>
                                     <li><i class="ti-user"></i>
-                                        <p>{{__('frontend.Enrolled')}} {{$course->total_enrolled}} {{__('frontend.students')}}</p>
+                                        <p>Estudiantes inscritos: {{$course->total_enrolled}} Estudiantes</p>
                                     </li>
-                                    <li><i class="ti-user"></i>
-                                        <p>{{__('frontend.Certificate of Completion')}}</p></li>
-                                    <li><i class="ti-blackboard"></i>
-                                        <p>{{__('frontend.Full lifetime access')}}</p></li>
                                 </ul>
                             </div>
                         </div>

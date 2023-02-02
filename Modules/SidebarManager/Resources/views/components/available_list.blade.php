@@ -3,178 +3,46 @@
     <div class="row">
         <div class="col-xl-12">
             <!-- menu_setup_wrap  -->
-            <div class="dd available_list  menu_item_div menu-list" data-section="1">
-                <div class="  available-items-container unused_menu" data-id="remove"
-
-                     data-section_id="remove"
+            <div class="dd available_list">
+                <div class="dd-list min-height-400 available-items-container" data-id="remove" data-section_id="remove"
                      id="available_list">
-                    @php
-                        $hasIds =[];
-                    @endphp
+
                     @isset($unused_menus)
                         @if($unused_menus->count())
+                            @foreach($unused_menus as $menu)
 
-                            @foreach($unused_menus->where('type',1) as $menu)
-                                @php
-                                    $hasIds[]=$menu->id;
-                                @endphp
-                                @if(!$menu->module ||  isModuleActive($menu->module))
-                                    @php
+                                <div class="dd-item listed_menu" data-id="{{$menu->id}}"
+                                     data-parent_id="{{$menu->parent_route}}">
+                                    <div class="dd-handle">
+                                        <div class="menu_icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                 class="feather feather-move icon-16 text-off mr5">
+                                                <polyline points="5 9 2 12 5 15"></polyline>
+                                                <polyline points="9 5 12 2 15 5"></polyline>
+                                                <polyline points="15 19 12 22 9 19"></polyline>
+                                                <polyline points="19 9 22 12 19 15"></polyline>
+                                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                                <line x1="12" y1="2" x2="12" y2="22"></line>
+                                            </svg>
+                                        </div>
+                                        {{$menu->name}}
+                                    </div>
+                                    <div class="edit_icon">
+                                            <span class="make-sub-menu toggle-menu-icon">
+                                                <i class="ti-back-left"></i>
+                                            </span>
+                                        <i class="ti-close remove_menu"></i>
+                                    </div>
+                                </div>
 
-                                        $submenus =$unused_menus->where('type',2)->where('parent_route',$menu->route)->where('parent_route','!=','dashboard');
-                                           if ($menu->theme && $menu->theme!=currentTheme()){
-                                            continue;
-                                        }
-                                    @endphp
-                                    <ol class="dd-list">
-                                        <li class="dd-item" data-id="{{$menu->id}}"
-                                            data-section_id="{{$menu->section_id}}"
-                                            data-parent_route="{{$menu->parent_route}}"
-                                        >
-                                            <div class="card accordion_card"
-                                                 id="accordion_{{$menu->id}}">
-                                                <div class="card-header item_header"
-                                                     id="heading_{{$menu->id}}">
-                                                    <div class="dd-handle">
-                                                        <div class="float-left">
-                                                            {{$menu->name}}
-                                                        </div>
-                                                    </div>
-                                                    <div class="float-right btn_div">
-                                                        <div class="edit_icon">
-                           <span class="edit-btn">
-                                <a class=" btn-modal"
-                                   data-container="#commonModal" type="button"
-                                   href="{{route('sidebar-manager.menu-edit-form',$menu->id)}}"
-                                >
-                                                           <i class="ti-pencil-alt p-2"></i>
-                                                        </a>
-
-                                                   </span>
-
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                            <ol class="dd-list">
-                                                @if($menu->route!='dashboard')
-                                                    @foreach($submenus->where('type',2) as $submenu)
-                                                        @php
-                                                            $hasIds[]=$submenu->id;
-                                                        @endphp
-                                                        @if(!$submenu->module ||  isModuleActive($submenu->module))
-                                                            @php
-                                                                $other_ids[]=$submenu->id;
-                                                                    if ($submenu->theme && $submenu->theme!=currentTheme()){
-                                                                          continue;
-                                                                      }
-                                                            @endphp
-                                                            <li class="dd-item"
-                                                                data-id="{{$submenu->id}}">
-                                                                <div class="card accordion_card"
-                                                                     id="accordion_{{$submenu->id}}">
-                                                                    <div
-                                                                        class="card-header item_header"
-                                                                        id="heading_{{$submenu->id}}">
-                                                                        <div class="dd-handle">
-                                                                            <div class="float-left">
-                                                                                {{$submenu->name}}
-
-                                                                            </div>
-                                                                        </div>
-                                                                        <div
-                                                                            class="float-right btn_div">
-                                                                            <div
-                                                                                class="float-right btn_div">
-                                                                                <div
-                                                                                    class="edit_icon">
-                           <span class="edit-btn">
-                                <a class=" btn-modal"
-                                   data-container="#commonModal" type="button"
-                                   href="{{route('sidebar-manager.menu-edit-form',$submenu->id)}}"
-                                >
-                                                           <i class="ti-pencil-alt p-2"></i>
-                                                        </a>
-
-                                                   </span>
-
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        @endif
-                                                    @endforeach
-                                                @endif
-                                            </ol>
-                                        </li>
-                                    </ol>
-                                @endif
                             @endforeach
-
-
-
-
-                            @foreach($unused_menus->whereNotIn('id',$hasIds) as $menu)
-
-                                @if(!$menu->module ||  isModuleActive($menu->module))
-                                    @php
-
-                                        $submenus =$unused_menus->where('type',2)->where('parent_route',$menu->route)->where('parent_route','!=','dashboard');
-                                           if ($menu->theme && $menu->theme!=currentTheme()){
-                                            continue;
-                                        }
-                                    @endphp
-                                    <ol class="dd-list">
-                                        <li class="dd-item" data-id="{{$menu->id}}"
-                                            data-section_id="{{$menu->section_id}}"
-                                            data-parent_route="{{$menu->parent_route}}"
-                                        >
-                                            <div class="card accordion_card"
-                                                 id="accordion_{{$menu->id}}">
-                                                <div class="card-header item_header"
-                                                     id="heading_{{$menu->id}}">
-                                                    <div class="dd-handle">
-                                                        <div class="float-left">
-                                                            {{$menu->name}}
-                                                        </div>
-                                                    </div>
-                                                    <div class="float-right btn_div">
-                                                        <div class="edit_icon">
-                           <span class="edit-btn">
-                                <a class=" btn-modal"
-                                   data-container="#commonModal" type="button"
-                                   href="{{route('sidebar-manager.menu-edit-form',$menu->id)}}"
-                                >
-                                                           <i class="ti-pencil-alt p-2"></i>
-                                                        </a>
-
-                                                   </span>
-
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
-                                        </li>
-                                    </ol>
-                                @endif
-                            @endforeach
-
                         @else
-                            <ol class="dd-list">
-                            </ol>
-
+                            <span class=' empty_list'>{{__('common.No more items available')}}</span>
                         @endif
                     @endif
+
                 </div>
             </div>
         </div>

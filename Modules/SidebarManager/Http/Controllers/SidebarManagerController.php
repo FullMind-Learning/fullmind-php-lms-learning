@@ -23,7 +23,7 @@ class SidebarManagerController extends Controller
     private function oldDataSync()
     {
         if (!Cache::has('oldPermissionSync' . SaasDomain())) {
-            $permissions = Permission::with('parent')->select('id', 'old_name', 'old_type', 'old_parent_route', 'name', 'type', 'parent_route')->get();
+            $permissions = Permission::select('id', 'old_name', 'old_type', 'old_parent_route', 'name', 'type', 'parent_route')->get();
             foreach ($permissions as $permission) {
                 if (empty($permission->old_name)) {
                     $permission->old_name = $permission->name;
@@ -36,9 +36,6 @@ class SidebarManagerController extends Controller
                 }
                 if (empty($permission->old_parent_route)) {
                     $permission->old_parent_route = $permission->parent_route;
-                }
-                if ($permission->parent) {
-                    $permission->section_id = $permission->parent->section_id;
                 }
                 $permission->save();
             }
@@ -215,69 +212,63 @@ class SidebarManagerController extends Controller
         ], 200);
     }
 
-
-    private function orderMenu(array $menuItems, $level = 1, $menu_status = 1, $section = 1, $parentRoute = null)
+    public function menuUpdate(Request $request)
     {
-        Cache::forget('oldPermissionSync' . SaasDomain());
+        $request->validate([
+            'ids' => 'required'
+        ]);
 
-        foreach ($menuItems as $index => $item) {
-            $menuItem = Permission::find($item->id);
-            if ($menuItem) {
-                $old_type = empty($menuItem->old_type) ? $menuItem->type : $menuItem->old_type;
-                if ($old_type == 1) {
+
+        $datas = json_decode($request->ids);;
+        $ids = [];
+        foreach ($datas as $key => $data) {
+            $menu = Permission::where('id', $data->id)->first();
+            if ($menu) {
+                $ids[] = $data->id;
+                $old_type = empty($menu->old_type) ? $menu->type : null;
+                if (!empty($menu->old_type) && $menu->old_type == 1) {
                     $old_parent_route = null;
                 } else {
-                    $old_parent_route = empty($menuItem->old_parent_route) ? $menuItem->parent_route : $menuItem->old_parent_route;
+                    $old_parent_route = empty($menu->old_parent_route) ? $menu->parent_route : null;
                 }
-//                if ($old_type != 3) {
-//                    foreach ($menuItem->childs as $child) {
-//                        $child->section_id = $section ?? 1;
-//                        $child->old_type = $old_type;
-//                        $child->old_parent_route = $old_parent_route;
-//                        $child->type = 2;
-//                        $child->menu_status = $menu_status ?? 1;
-//                        $child->save();
-//                    }
-//                }
 
-
-                $menuItem->update([
-                    'position' => $index + 1,
-                    'parent_route' => $parentRoute,
-                    'section_id' => $section ?? 1,
-                    'old_type' => $old_type,
-                    'old_parent_route' => $old_parent_route,
-                    'type' => $level,
-                    'menu_status' => $menu_status ?? 1,
-                ]);
-                if (isset($item->children)) {
-                    $this->orderMenu($item->children, 2, $menu_status, $section, $menuItem->route);
+                if (!isset($data->is_sub_menu)) {
+                    $menu->update([
+                        'old_type' => $old_type,
+                        'old_parent_route' => $old_parent_route,
+                        'type' => 1,
+                        'parent_route' => null,
+                        'position' => $key + 1,
+                        'menu_status' => 1,
+                        'section_id' => $data->section_id ?? 1
+                    ]);
+                } else {
+                    $parent = Permission::where('id', $data->parent_id)->first();
+                    if ($parent && $parent->route != 'dashboard') {
+                        $parent_route = $parent->route;
+                    } else {
+                        $parent_route = $menu->parent_route;
+                    }
+                    if ($parent_route != $menu->route) {
+                        $menu->update([
+                            'old_type' => $old_type,
+                            'old_parent_route' => $old_parent_route,
+                            'type' => 2,
+                            'parent_route' => $parent_route,
+                            'position' => $key + 1,
+                            'menu_status' => 1,
+                            'section_id' => $data->section_id ?? 1
+                        ]);
+                    }
 
                 }
             }
-
         }
 
+//        Permission::whereNotIn('id', $ids)->update([
+//            'menu_status' => 0
+//        ]);
 
-    }
-
-
-    public function menuUpdate(Request $request)
-    {
-
-        $menuItemOrder = json_decode($request->get('order'));
-        $this->orderMenu($menuItemOrder, 1, $request->menu_status, $request->section, null);
-
-        if ($request->ids) {
-            Permission::whereIn('id', $request->ids)->update([
-                'menu_status' => 1,
-            ]);
-        }
-        if ($request->unused_ids) {
-            Permission::whereIn('id', $request->unused_ids)->update([
-                'menu_status' => 0,
-            ]);
-        }
         return $this->reloadWithData();
     }
 
@@ -300,55 +291,8 @@ class SidebarManagerController extends Controller
 
     public function resetMenu()
     {
-        Cache::forget('oldPermissionSync' . SaasDomain());
         try {
-            PermissionSection::where('id', '>=', 6)->delete();
-            $sections = [
-                [
-                    'id' => 1,
-                    'name' => '',
-                    'ecommerce' => 0
-                ],
-                [
-                    'id' => 2,
-                    'name' => 'Users',
-                    'ecommerce' => 0
-                ],
-
-                [
-                    'id' => 3,
-                    'name' => 'Education',
-                    'ecommerce' => 0
-                ],
-
-                [
-                    'id' => 4,
-                    'name' => 'E-commerce',
-                    'ecommerce' => 1
-                ],
-
-                [
-                    'id' => 5,
-                    'name' => 'Content',
-                    'ecommerce' => 0
-                ],
-
-                [
-                    'id' => 6,
-                    'name' => 'Administration',
-                    'ecommerce' => 0
-                ],
-            ];
-            foreach ($sections as $key => $section) {
-                PermissionSection::updateOrCreate([
-                    'id' => $section['id'],
-                ], [
-                    'id' => $section['id'],
-                    'position' => $key++,
-                    'name' => $section['name'],
-                    'ecommerce' => $section['ecommerce'],
-                ]);
-            }
+            PermissionSection::where('id', '!=', 1)->delete();
             $permissions = Permission::all();
             foreach ($permissions as $permission) {
                 if (!empty($permission->old_name)) {
@@ -405,11 +349,7 @@ class SidebarManagerController extends Controller
                 }
                 $permission->menu_status = 1;
                 $permission->section_id = 1;
-
-
                 $permission->save();
-
-
             }
 
             if (isModuleActive('Org')) {
@@ -420,14 +360,12 @@ class SidebarManagerController extends Controller
             }
 
             return response()->json([
-                'msg' => 'Success',
-                'msg_full' => trans('common.Operation successful')
+                'msg' => 'Success'
             ], 200);
         } catch (Exception $e) {
             DB::rollBack();
             return response()->json([
-                'msg' => 'Failed',
-                'msg_full' => trans('common.Operation failed')
+                'msg' => 'Failed'
             ], 500);
         }
 
@@ -462,12 +400,7 @@ class SidebarManagerController extends Controller
     public function defaultOrder()
     {
         $orders = [
-            'dashboard'
-        ];
-        $this->changeOrder($orders);
-
-//users
-        $orders = [
+            'dashboard',
             'students',
             'student.student_list',
             'regular_student_import',
@@ -478,48 +411,16 @@ class SidebarManagerController extends Controller
             'instructors',
             'allInstructor',
             'admin.instructor.payout',
-            'user.manager',
-            'staffs.index',
-            'hr.department.index',
-            'permission.roles.index',
-            'staffs.settings',
-        ];
-        $this->changeOrder($orders, 2);
-
-//education
-        $orders = [
             'courses',
             'course.category',
             'getAllCourse',
-            'course-level.index',
             'course.setting',
             'quiz',
             'question-group',
-            'question-bank',
             'question-bank-list',
             'question-bank-bulk',
             'online-quiz',
             'quizSetup',
-            'virtual-class',
-            'virtual-class.index',
-            'zoom',
-            'zoom.settings',
-
-            'certificate',
-            'certificate.index',
-            'certificate.create',
-            'certificate.fonts',
-
-            'reports',
-            'admin.reveuneList',
-            'admin.reveuneListInstructor',
-            'course.courseStatistics',
-            'quizResult',
-        ];
-        $this->changeOrder($orders, 3);
-
-        //ecommerce
-        $orders = [
             'coupons',
             'coupons.manage',
             'coupons.common',
@@ -527,16 +428,23 @@ class SidebarManagerController extends Controller
             'coupons.personalized',
             'coupons.invite_code',
             'coupons.inviteSettings',
+            'communications',
+            'communication.PrivateMessage',
             'payments',
             'onlineLog',
             'offlinePayment',
             'bankPayment.index',
-        ];
-        $this->changeOrder($orders, 4);
-//        content
-        $orders = [
+            'reports',
+            'admin.reveuneList',
+            'admin.reveuneListInstructor',
+            'course.courseStatistics',
+            'quizResult',
+            'certificate',
+            'certificate.index',
+            'certificate.create',
+            'certificate.fonts',
             'frontend_CMS',
-            'frontend.headermenu',
+            'headermenu',
             'frontend.menusetting',
             'frontend.sliders.index',
             'frontend.sliders.setting',
@@ -554,22 +462,35 @@ class SidebarManagerController extends Controller
             'footerSetting.footer.index',
             'frontend.loginpage.index',
             'frontend.faq.index',
-            'customJsCss',
+            'zoom',
+            'zoom.settings',
+            'virtual-class',
+            'virtual-class.index',
             'blogs',
             'blog-category.index',
             'blogs.index',
-            'gamification',
-            'gamification.setting',
-            'gamification.badges',
-            'gamification.history',
-            'communications',
-            'communication.PrivateMessage',
-
-        ];
-        $this->changeOrder($orders, 5);
-
-//        administration
-        $orders = [
+            'newsletter',
+            'newsletter.setting',
+            'newsletter.mailchimp.setting',
+            'newsletter.getresponse.setting',
+            'newsletter.acelle.setting',
+            'newsletter.subscriber',
+            'appearance',
+            'appearance.themes.index',
+            'appearance.themes.demo',
+            'appearance.themes-customize.index',
+            'notification',
+            'notification_setup_list',
+            'UserNotificationControll',
+            'setting.pushNotification',
+            'utility',
+            'setting.preloader',
+            'setting.error_log',
+            'user.manager',
+            'staffs.index',
+            'hr.department.index',
+            'permission.roles.index',
+            'staffs.settings',
             'settings',
             'setting.activation',
             'setting.general_settings',
@@ -596,41 +517,16 @@ class SidebarManagerController extends Controller
             'setting.captcha',
             'setting.socialLogin',
             'sidebar-manager.index',
-            'appearance',
-            'appearance.themes.index',
-            'appearance.themes.demo',
-            'appearance.themes-customize.index',
-            'newsletter',
-            'newsletter.setting',
-            'newsletter.mailchimp.setting',
-            'newsletter.getresponse.setting',
-            'newsletter.acelle.setting',
-            'newsletter.subscriber',
-            'notification',
-            'notification_setup_list',
-            'UserNotificationControll',
-            'setting.pushNotification',
-            'utility',
-            'setting.preloader',
-            'setting.error_log',
             'backup.index',
         ];
-        $this->changeOrder($orders, 6);
 
-
-    }
-
-    public function changeOrder($orders = [], $section_id = 1)
-    {
         foreach ($orders as $key => $item) {
             $menu = Permission::where('route', $item)->first();
             if ($menu) {
                 $menu->position = $key + 1;
-                $menu->section_id = $section_id;
                 $menu->save();
             }
         }
     }
-
 
 }

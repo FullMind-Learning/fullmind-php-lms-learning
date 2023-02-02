@@ -28,10 +28,10 @@ class BookmarkController extends Controller
                 $bookmark->date = date("jS F Y");
                 $bookmark->save();
 
-                Toastr::success(trans('frontend.Wishlist Added Successfully'), trans('common.Success'));
+                Toastr::success('Bookmark Added Successfully', 'Success');
             } else {
                 $bookmarked->delete();
-                Toastr::success(trans('frontend.Wishlist Remove Successfully'), trans('common.Success'));
+                Toastr::success('Bookmark Remove Successfully', 'Success');
 
             }
 
@@ -42,4 +42,43 @@ class BookmarkController extends Controller
 
     }
 
+    /**
+     * Show the specified resource.
+     * @param int $id
+     * @return Response
+     */
+
+
+    /**
+     * Show the form for editing the specified resource.
+     * @param int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
+    public function update($lesson_id, $chapter_id, $course_id)
+    {
+
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * @param int $id
+     * @return Response
+     */
+    public function bookmarksDelete($id)
+    {
+
+
+    }
 }

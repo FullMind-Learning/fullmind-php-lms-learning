@@ -179,8 +179,6 @@ Route::group(['namespace' => 'Frontend', 'middleware' => ['student']], function 
 Route::group(['middleware' => ['student']], function () {
     Route::get('my-notification-setup', 'NotificationController@myNotificationSetup')->name('myNotificationSetup');
     Route::get('my-notifications', 'NotificationController@myNotification')->name('myNotification');
-    Route::get('my-noticeboard', 'NotificationController@myNoticeboard')->name('myNoticeboard');
-    Route::get('show-noticeboard/{id}', 'NotificationController@showNoticeboard')->name('showNoticeboard');
 });
 
 

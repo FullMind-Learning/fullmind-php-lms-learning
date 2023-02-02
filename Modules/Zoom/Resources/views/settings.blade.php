@@ -1,6 +1,17 @@
 @extends('backend.master')
 @section('mainContent')
-    {{generateBreadcrumb()}}
+    <section class="sms-breadcrumb mb-40 up_breadcrumb white-box">
+        <div class="container-fluid">
+            <div class="row justify-content-between">
+                <h1> {{__('zoom.Zoom Setting')}}</h1>
+                <div class="bc-pages">
+                    <a href="{{route('dashboard')}}">{{__('common.Dashboard')}}</a>
+                    <a href="#">{{__('zoom.Zoom')}}</a>
+                    <a href="#" class="active"> {{__('zoom.Zoom Setting')}}</a>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="admin-visitor-area up_admin_visitor">
         <div class="container-fluid p-0">
             <div class="row">

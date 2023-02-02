@@ -516,7 +516,7 @@ class WebsiteController extends Controller
                 $unlock_lesson_days = $lesson->unlock_days;
                 if (!empty($unlock_lesson_days) || !empty($unlock_lesson_date)) {
                     if (!empty($unlock_lesson_date)) {
-                        if (strtotime($unlock_lesson_date) <= strtotime($today)) {
+                        if (strtotime($unlock_lesson_date) == strtotime($today)) {
                             $lessonShow = true;
                         }
 
@@ -548,7 +548,7 @@ class WebsiteController extends Controller
                 }
 
                 if (!$lessonShow) {
-                    Toastr::error('Lesson currently unavailable!', trans('common.Failed'));
+                    Toastr::error('Lesson currently unavailable!', 'Failed');
                     return redirect()->back();
                 }
             }

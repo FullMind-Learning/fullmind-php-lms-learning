@@ -1,6 +1,6 @@
 <div class="aoraeditor-skip aoraeditor-footer">
     <x-popup-content/>
-    <footer class="{{Settings('footer_show')==0?'d-none d-sm-none d-md-block d-lg-block d-xl-block':''}}">
+   <!-- <footer class="{{Settings('footer_show')==0?'d-none d-sm-none d-md-block d-lg-block d-xl-block':''}}">
         @if(@$homeContent->show_subscribe_section==1)
             <x-footer-news-letter/>
         @endif
@@ -72,7 +72,7 @@
                    class="theme_btn small_btn3 flex-fill text-center">{{__('frontend.Checkout')}}</a>
             </div>
         </div>
-    </div>
+    </div>-->
     <!-- shoping_cart::end  -->
 
     <!-- UP_ICON  -->
@@ -165,14 +165,6 @@
         </div>
     </div>
 
-
-    <div class="modal fade noticeboard-modal" id="myNoticeboard" tabindex="-1" role="dialog"
-         aria-labelledby="myNoticeboard"
-         aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered" id="myNoticeboardBody">
-
-        </div>
-    </div>
 
     <script src="{{asset('public/frontend/infixlmstheme/js/app.js')}}"></script>
 

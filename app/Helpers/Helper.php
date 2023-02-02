@@ -2721,9 +2721,9 @@ if (!function_exists('MinuteFormat')) {
         $min = $minutes - ($hours * 60);
         $result = '';
         if ($hours == 1) {
-            $result .= $hours . ' Hour ';
+            $result .= $hours . ' Hora ';
         } elseif ($hours > 1) {
-            $result .= $hours . ' Hours ';
+            $result .= $hours . ' Horas ';
         }
 
         if ($min == 1) {
@@ -4072,7 +4072,7 @@ if (!function_exists('checkGamificationReg')) {
             if (Auth::check()) {
                 $created = new \Illuminate\Support\Carbon(Auth::user()->created_at);
                 $now = Carbon::now();
-                $totalDay = $now->diffInDays($created) - 1;
+                $totalDay = $now->diffInDays($created);
             }
             $query->where('point', '<=', $totalDay);
         })->orderBy('point', 'asc')->get();

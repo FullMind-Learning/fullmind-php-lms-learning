@@ -588,9 +588,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function userLatestBadges()
     {
-        return $this->hasMany(UserBadge::class, 'user_id', 'id')->orderBy('id', 'desc');
+        return $this->hasMany(UserBadge::class, 'user_id', 'id')->latest();
     }
-
 
     public function studentCourses()
     {

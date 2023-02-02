@@ -8,11 +8,12 @@
                             <div class="section__title3 margin-50">
                                 <h3>
                                     @if (routeIs('myClasses'))
-                                        {{ __('courses.Live Class') }}
+                                        Clases en vivo
                                     @elseif(routeIs('myQuizzes'))
-                                        {{ __('courses.My Quizzes') }}
+                                        Cuestionarios
                                     @else
-                                        {{ __('courses.My Courses') }}
+                                        Cursos
+                                        
                                     @endif
                                 </h3>
                             </div>
@@ -34,11 +35,11 @@
                     <div class="row d-flex align-items-center mb-4 mb-lg-5">
                         <div class="col-xl-6 col-md-6">
                             <div class="short_select d-flex align-items-center pt-0 pb-3">
-                                <h5 class="mr_10 font_16 f_w_500 mb-0">{{ __('frontend.Filter By') }}:</h5>
+                                <h5 class="mr_10 font_16 f_w_500 mb-0">Filtrar por:</h5>
                                 <input type="hidden" id="siteUrl" value="{{ route(\Request::route()->getName()) }}">
                                 <select class="theme_select my-course-select w-50" id="categoryFilter">
                                     <option value="" data-display="{{ __('frontend.All Categories') }}">
-                                        {{ __('frontend.All Categories') }}</option>
+                                        Todas las categorías}</option>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}"
                                             {{ @$category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -55,9 +56,9 @@
                                     </div>
 
                                     <input type="text" class="form-control" name="search"
-                                           placeholder="{{ $search_text }}" value="{{ $search }}"
+                                           placeholder="Buscar..." value="{{ $search }}"
                                            onfocus="this.placeholder = ''"
-                                           onblur="this.placeholder = '{{ $search_text }}'">
+                                           onblur="this.placeholder = 'Buscar...'">
 
                                 </div>
                             </form>
@@ -72,18 +73,19 @@
                                 <div class="col-xl-4 col-md-6">
                                     @if ($course->type == 1)
                                         <div class="couse_wizged">
-                                            <div class="thumb">
-                                                <div class="thumb_inner lazy"
-                                                     data-src="{{ getCourseImage($course->thumbnail) }}">
+                                           <div class="thumb">
+                                               
+                                                <a href="{{ courseDetailsUrl($course->id, $course->type, $course->slug) }}"><img class="thumb_inner lazy"
+                                                     src="{{ getCourseImage($course->thumbnail) }}" ></a>
 
                                                     <x-price-tag :price="$course->price"
                                                                  :discount="$course->discount_price"/>
 
-                                                </div>
+                                            
 
                                             </div>
                                             <div class="course_content">
-                                                <a href="{{ route('continueCourse', [$course->slug]) }}">
+                                                <a href="{{ courseDetailsUrl($course->id, $course->type, $course->slug) }}">
                                                     <h4 class="noBrake" title="{{ $course->title }}">
                                                         {{ $course->title }}
                                                     </h4>
@@ -112,7 +114,7 @@
                                                             % {{ __('student.Complete') }}</p>
                                                     </div>
                                                 </div>
-                                                <div class="course_less_students">
+                                                <!--<div class="course_less_students">
                                                     <a>
                                                         <i class="ti-agenda"></i> {{ count($course->lessons) }}
                                                         {{ __('student.Lessons') }}
@@ -120,7 +122,7 @@
                                                     <a>
                                                         <i class="ti-user"></i> {{ $course->total_enrolled }}
                                                         {{ __('student.Students') }}
-                                                    </a>
+                                                    </a>-->
                                                     @if (isModuleActive('CPD'))
                                                         @if(count($cpds)>0)
                                                             <a class="cpd cpdValue"
@@ -138,14 +140,14 @@
                                         <div class="quiz_wizged">
                                             <a href="{{ courseDetailsUrl($course->id, $course->type, $course->slug) }}">
                                                 <div class="thumb">
-                                                    <div class="thumb_inner lazy"
-                                                         data-src="{{ getCourseImage($course->thumbnail) }}">
+                                                    <a href="{{ courseDetailsUrl($course->id, $course->type, $course->slug) }}"><img class="thumb_inner lazy"
+                                                         src="{{ getCourseImage($course->thumbnail) }}"></a>
 
                                                         <x-price-tag :price="$course->price"
                                                                      :discount="$course->discount_price"/>
 
 
-                                                    </div>
+                                                    
                                                     <span class="quiz_tag">{{ __('quiz.Quiz') }}</span>
                                                 </div>
                                             </a>
@@ -238,11 +240,11 @@
                             <div class="col-12">
                                 <div class="section__title3 margin_50">
                                     @if (routeIs('myClasses'))
-                                        <p class="text-center">{{ __('student.No Class Purchased Yet') }}!</p>
+                                        <p class="text-center">No tienes clases disponibles.</p>
                                     @elseif(routeIs('myQuizzes'))
-                                        <p class="text-center">{{ __('student.No Quiz Purchased Yet') }}!</p>
+                                        <p class="text-center">No tienes cuestionarios disponibles.</p>
                                     @else
-                                        <p class="text-center">{{ __('student.No Course Purchased Yet') }}!</p>
+                                        <p class="text-center">No tienes cursos disponibles.</p>
                                     @endif
 
                                 </div>

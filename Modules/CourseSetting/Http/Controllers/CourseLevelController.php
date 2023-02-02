@@ -53,7 +53,7 @@ class CourseLevelController extends Controller
 
     public function update(Request $request, $id)
     {
-
+       
         if (demoCheck()) {
             return redirect()->back();
         }
@@ -89,6 +89,6 @@ class CourseLevelController extends Controller
         $level = CourseLevel::findOrFail($id);
         $level->delete();
         Toastr::success(trans('common.Operation successful'), trans('common.Success'));
-        return redirect()->route('course-level.index');
+        return redirect()->back();
     }
 }

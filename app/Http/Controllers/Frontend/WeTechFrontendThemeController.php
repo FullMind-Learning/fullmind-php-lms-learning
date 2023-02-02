@@ -186,7 +186,7 @@ class WeTechFrontendThemeController extends Controller
                     $q->whereHas('checkouts', function ($q2) use ($month, $year) {
                         $q2->whereMonth('start_date', '=', $month);
                         $q2->whereYear('start_date', '=', $year);
-                        $q2->where('user_id', '=', \auth()->id());
+                        $q2->whereYear('user_id', '=', \auth()->id());
                     });
 
                 })

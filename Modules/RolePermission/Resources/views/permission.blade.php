@@ -30,11 +30,9 @@
         <input type="hidden" name="role_id" value="{{@$role->id}}">
         @foreach($sections as $section)
             <div class="row">
-                @if ($role->id!=3)
-                    <div class="col-sm-12">
-                        {{$section->name}}
-                    </div>
-                @endif
+                <div class="col-sm-12">
+                    {{$section->name}}
+                </div>
                 <div class="col-sm-12">
                     <div class="mesonary_role_header">
                         @php

@@ -32,7 +32,7 @@ class HomeController extends Controller
         } else if (Auth::user()->role_id == 2) {
             return redirect()->route('dashboard');
         } else if (Auth::user()->role_id == 3) {
-            return redirect()->route('studentDashboard');
+            return redirect()->route('myCourses');
         } else {
             return redirect('/');
         }
@@ -45,7 +45,7 @@ class HomeController extends Controller
 
         try {
             if (Auth::user()->role_id == 3) {
-                return redirect()->route('studentDashboard');
+                return redirect()->route('myCourses');
             }
             if (isModuleActive('Affiliate') && Auth::user()->role->name == 'Affiliate') {
                 return redirect()->route('affiliate.my_affiliate.index');

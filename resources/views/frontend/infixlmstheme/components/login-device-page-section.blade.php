@@ -7,7 +7,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="section__title3 mb_40">
-                                    <h3 class="mb-0">{{__('frontend.Logged In Devices')}}</h3>
+                                    <h3 class="mb-0">Dispositivos usados</h3>
                                     <h4></h4>
                                 </div>
                             </div>
@@ -18,12 +18,12 @@
                                     <table class="table custom_table3 mb-0">
                                         <thead>
                                         <tr>
-                                            <th scope="col">{{__('common.SL')}}</th>
-                                            <th scope="col">{{__('common.Date')}}</th>
-                                            <th scope="col">{{__('frontend.OS')}}</th>
-                                            <th scope="col">{{__('frontend.Browser')}}</th>
-                                            <th scope="col">{{__('frontend.LogOut Date')}}</th>
-                                            <th scope="col">{{__('common.Action')}}</th>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Fecha</th>
+                                            <th scope="col">Sistema operativo</th>
+                                            <th scope="col">Navegador</th>
+                                            <th scope="col">Estado</th>
+                                            <th scope="col">Acción</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -44,7 +44,7 @@
                                                         @if(($login->os != $os && $login->browser != $browser && $login->ip != $ip) || $login->token != session()->get('login_token'))
                                                             <a href="#" data-toggle="modal"
                                                                data-target="#logOut{{$login->id}}"
-                                                               class="link_value theme_btn small_btn4">{{__('frontend.LogOut')}}</a>
+                                                               class="link_value theme_btn small_btn4">Cerrar sesión</a>
                                                         @endif
                                                     </td>
                                                     <div class="modal fade" id="logOut{{$login->id}}" tabindex="-1"
@@ -54,7 +54,7 @@
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title" id="exampleModalLongTitle">
-                                                                        {{__('frontend.Enter Your Password To Continue')}}</h5>
+                                                                        Escribe tu contraseña para continuar</h5>
                                                                     <button type="button" class="close"
                                                                             data-dismiss="modal"
                                                                             aria-label="Close">
@@ -86,7 +86,7 @@
                                                                                 </div>
                                                                                 <input type="password" name="password"
                                                                                        class="form-control"
-                                                                                       placeholder="{{__('common.Enter Password')}}"
+                                                                                       placeholder="Escribe tu contraseña"
                                                                                        aria-label="password"
                                                                                        aria-describedby="basic-addon4">
                                                                             </div>
@@ -94,10 +94,10 @@
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary"
-                                                                                data-dismiss="modal">{{__('common.Close')}}
+                                                                                data-dismiss="modal">Cancelar
                                                                         </button>
                                                                         <button type="submit"
-                                                                                class="link_value theme_btn small_btn4">{{__('frontend.LogOut')}}</button>
+                                                                                class="link_value theme_btn small_btn4">Cerrar sesión</button>
                                                                     </div>
                                                                 </form>
                                                             </div>

@@ -14,11 +14,6 @@ class RoleRepository implements RoleRepositoryInterface
         return Role::orderBy('id', 'desc')->get();
     }
 
-    public function allActiveInArray()
-    {
-        return Role::orderBy('id', 'asc')->get()->pluck('name', 'id');
-    }
-
     public function create(array $data)
     {
         $role = new Role();

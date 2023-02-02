@@ -9,5 +9,5 @@
     "/backend/css/backend_style_rtl.css": "/backend/css/backend_style_rtl.css",
     "/frontend/infixlmstheme/css/app.css": "/frontend/infixlmstheme/css/app.css",
     "/frontend/infixlmstheme/css/frontend_style.css": "/frontend/infixlmstheme/css/frontend_style.css",
-    "/modules/inappliveclass/script.js": "/modules/inappliveclass/script.js"
+    "/backend/js/plugin.js": "/backend/js/plugin.js"
 }

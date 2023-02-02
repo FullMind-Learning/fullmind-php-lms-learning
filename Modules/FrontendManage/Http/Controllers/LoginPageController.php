@@ -27,26 +27,26 @@ class LoginPageController extends Controller
         }
 
         $page = LoginPage::first();
-        foreach ((array)$request->title as $key => $title) {
+        foreach ($request->title as $key => $title) {
             $page->setTranslation('title', $key, $title);
         }
-        if ((array)$request->banner != null) {
+        if ($request->banner != null) {
 
-            $page->banner = $this->saveImage($request->banner);
+            $page->banner =  $this->saveImage($request->banner);
         }
-        foreach ((array)$request->slogan1 as $key => $slogans1) {
+        foreach ($request->slogan1 as $key => $slogans1) {
             $page->setTranslation('slogans1', $key, $slogans1);
         }
 
-        foreach ((array)$request->slogan2 as $key => $slogans2) {
+        foreach ($request->slogan2 as $key => $slogans2) {
             $page->setTranslation('slogans2', $key, $slogans2);
         }
 
-        foreach ((array)$request->slogan3 as $key => $slogan3) {
+        foreach ($request->slogan3 as $key => $slogan3) {
             $page->setTranslation('slogans3', $key, $slogan3);
         }
 
-        foreach ((array)$request->reg_title as $key => $reg_title) {
+        foreach ($request->reg_title as $key => $reg_title) {
             $page->setTranslation('reg_title', $key, $reg_title);
         }
         if ($request->reg_banner != null) {
@@ -63,20 +63,20 @@ class LoginPageController extends Controller
             $page->reg_banner = $url;
         }
 
-        foreach ((array)$request->reg_slogan1 as $key => $slogans1) {
+        foreach ($request->reg_slogan1 as $key => $slogans1) {
             $page->setTranslation('reg_slogans1', $key, $slogans1);
         }
 
-        foreach ((array)$request->reg_slogan2 as $key => $slogans2) {
+        foreach ($request->reg_slogan2 as $key => $slogans2) {
             $page->setTranslation('reg_slogans2', $key, $slogans2);
         }
 
-        foreach ((array)$request->reg_slogan3 as $key => $slogan3) {
+        foreach ($request->reg_slogan3 as $key => $slogan3) {
             $page->setTranslation('reg_slogans3', $key, $slogan3);
         }
 
 
-        foreach ((array)$request->forget_title as $key => $forget_title) {
+        foreach ($request->forget_title as $key => $forget_title) {
             $page->setTranslation('forget_title', $key, $forget_title);
         }
         if ($request->forget_banner != null) {
@@ -92,15 +92,15 @@ class LoginPageController extends Controller
 
             $page->forget_banner = $url;
         }
-        foreach ((array)$request->forget_slogan1 as $key => $slogans1) {
+        foreach ($request->forget_slogan1 as $key => $slogans1) {
             $page->setTranslation('forget_slogans1', $key, $slogans1);
         }
 
-        foreach ((array)$request->forget_slogan2 as $key => $slogans2) {
+        foreach ($request->forget_slogan2 as $key => $slogans2) {
             $page->setTranslation('forget_slogans2', $key, $slogans2);
         }
 
-        foreach ((array)$request->forget_slogan3 as $key => $slogan3) {
+        foreach ($request->forget_slogan3 as $key => $slogan3) {
             $page->setTranslation('forget_slogans3', $key, $slogan3);
         }
         $page->save();

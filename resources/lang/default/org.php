@@ -228,12 +228,6 @@ return [
     'The Username has already been taken' => 'The Username has already been taken',
     'Username is required' => 'Username is required',
     'Course Property' => 'Course Property',
-    'Course Properties' => 'Course Properties',
-    'Video Supported Files'=>'Video Supported Files',
-    'Excel File Extension'=>'Excel File Extension',
-    'Powerpoint Supported Files'=>'Powerpoint Supported Files',
-    'Word Supported Files'=>'Word Supported Files',
-    'PDF File Extension'=>'PDF File Extension',
-    'SCORM/Tin Can File Extension'=>'SCORM/Tin Can File Extension'
+    'Course Properties' => 'Course Properties'
 ];
 

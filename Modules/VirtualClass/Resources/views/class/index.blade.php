@@ -490,7 +490,7 @@
                                                    for=""> {{__('virtual-class.Host')}} </label>
                                         </div>
 
-                                        <div class="col-md-3 mb-25">
+                                        <div class="col-md-6 mb-25">
                                             <label for="type1" class="primary_checkbox d-flex mr-12 ">
                                                 <input type="radio" class="common-checkbox" id="type1" name="host"
                                                        value="Zoom"
@@ -500,7 +500,7 @@
                                         </div>
 
                                         @if(isModuleActive("BBB"))
-                                            <div class="col-md-3 mb-25">
+                                            <div class="col-md-6 mb-25">
                                                 <label for="type2" class="primary_checkbox d-flex mr-12 ">
                                                     <input type="radio" class="common-checkbox" id="type2" name="host"
                                                            value="BBB"
@@ -512,25 +512,13 @@
                                         @endif
 
                                         @if(isModuleActive("Jitsi"))
-                                            <div class="col-md-3 mb-25">
+                                            <div class="col-md-6 mb-25">
                                                 <label for="type3" class="primary_checkbox d-flex mr-12 ">
                                                     <input type="radio" class="common-checkbox" id="type3" name="host"
                                                            value="Jitsi"
                                                            @if(isset($class)) @if($class->host=="Jitsi") checked @endif @endif
                                                     >
                                                     <span class="checkmark mr-2"></span> {{__('jitsi.Jitsi')}}</label>
-                                            </div>
-                                        @endif
-                                        @if(isModuleActive("InAppLiveClass"))
-                                            <div class="col-md-3 mb-25">
-                                                <label for="type4" class="primary_checkbox d-flex mr-12 text-nowrap">
-                                                    <input type="radio" class="common-checkbox" id="type4" name="host"
-                                                           value="InAppLiveClass"
-                                                           @if(isset($class)) @if($class->host=="InAppLiveClass") checked @endif @endif
-                                                    >
-                                                    <span
-                                                        class="checkmark mr-2"></span> {{__('common.In-App Live Class')}}
-                                                </label>
                                             </div>
                                         @endif
                                     </div>
@@ -766,203 +754,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div
-                                        class="   single_class InAppLiveClassSetting @if (isset($class)) d-none @endif"
-                                        style="display: {{ isset($class) ? ($class->host == 'InAppLiveClass' ? 'block' : 'none') : 'none' }}">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="primary_input">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="primary_input">
-                                                    <label class="primary_input_label"
-                                                           for="">{{ __('chat.chat') }}
-                                                    </label>
-
-                                                    <div class="primary_datepicker_input">
-                                                        <div class="no-gutters input-right-icon">
-                                                            <div class="row">
-                                                                <div class="col-md-3 mb-25 pl-0">
-                                                                    <div class="mr-30">
-                                                                        <label class="primary_checkbox d-flex mr-12 "
-                                                                               for="in_app_chat1">
-                                                                            <input type="radio" name="in_app_chat"
-                                                                                   id="in_app_chat1"
-                                                                                   value="1"
-                                                                                   checked
-                                                                                   class="common-radio ">
-                                                                            <span
-                                                                                class="checkmark mr-2"></span> {{__('common.Yes')}}
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-3 mb-25">
-                                                                    <div class="mr-30">
-                                                                        <label class="primary_checkbox d-flex mr-12 "
-                                                                               for="in_app_chat0">
-                                                                            <input type="radio" name="in_app_chat"
-                                                                                   id="in_app_chat0"
-                                                                                   value="0"
-
-                                                                                   class="common-radio ">
-                                                                            <span
-                                                                                class="checkmark mr-2"></span> {{__('common.No')}}
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
 
 
-                                                        </div>
-
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-
-
-                                            <!--                                            <div class="col-lg-6">
-                                                <div class="primary_input">
-                                                    <label class="primary_input_label"
-                                                           for="">{{ __('frontend.Audio') }}
-                                            </label>
-
-                                            <div class="primary_datepicker_input">
-                                                <div class="no-gutters input-right-icon">
-                                                    <div class="row">
-                                                        <div class="col-md-3 mb-25 pl-0">
-                                                            <div class="mr-30">
-                                                                <label class="primary_checkbox d-flex mr-12 "
-                                                                       for="in_app_audio1">
-                                                                    <input type="radio" name="in_app_audio"
-                                                                           id="in_app_audio1"
-                                                                           value="1"
-                                                                           checked
-                                                                           class="common-radio ">
-                                                                    <span
-                                                                        class="checkmark mr-2"></span> {{__('common.Yes')}}
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mb-25">
-                                        <div class="mr-30">
-                                            <label class="primary_checkbox d-flex mr-12 "
-                                                   for="in_app_audio0">
-                                                <input type="radio" name="in_app_audio"
-                                                       id="in_app_audio0"
-                                                       value="0"
-
-                                                       class="common-radio ">
-                                                <span
-                                                    class="checkmark mr-2"></span> {{__('common.No')}}
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-lg-6">
-                    <div class="primary_input">
-                        <label class="primary_input_label"
-                               for="">{{ __('frontend.Video') }}
-                                            </label>
-
-                                            <div class="primary_datepicker_input">
-                                                <div class="no-gutters input-right-icon">
-                                                    <div class="row">
-                                                        <div class="col-md-3 mb-25 pl-0">
-                                                            <div class="mr-30">
-                                                                <label class="primary_checkbox d-flex mr-12 "
-                                                                       for="in_app_video1">
-                                                                    <input type="radio" name="in_app_video"
-                                                                           id="in_app_video1"
-                                                                           value="1"
-                                                                           checked
-                                                                           class="common-radio ">
-                                                                    <span
-                                                                        class="checkmark mr-2"></span> {{__('common.Yes')}}
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mb-25">
-                                        <div class="mr-30">
-                                            <label class="primary_checkbox d-flex mr-12 "
-                                                   for="in_app_video0">
-                                                <input type="radio" name="in_app_video"
-                                                       id="in_app_video0"
-                                                       value="0"
-
-                                                       class="common-radio ">
-                                                <span
-                                                    class="checkmark mr-2"></span> {{__('common.No')}}
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="primary_input">
-                        <label class="primary_input_label"
-                               for="">{{ __('frontend.share_screen') }}
-                                            </label>
-
-                                            <div class="primary_datepicker_input">
-                                                <div class="no-gutters input-right-icon">
-                                                    <div class="row">
-                                                        <div class="col-md-3 mb-25 pl-0">
-                                                            <div class="mr-30">
-                                                                <label class="primary_checkbox d-flex mr-12 "
-                                                                       for="in_app_share_screen1">
-                                                                    <input type="radio"
-                                                                           name="in_app_share_screen"
-                                                                           id="in_app_share_screen1"
-                                                                           value="1"
-                                                                           checked
-                                                                           class="common-radio ">
-                                                                    <span
-                                                                        class="checkmark mr-2"></span> {{__('common.Yes')}}
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mb-25">
-                                        <div class="mr-30">
-                                            <label class="primary_checkbox d-flex mr-12 "
-                                                   for="in_app_share_screen0">
-                                                <input type="radio"
-                                                       name="in_app_share_screen"
-                                                       id="in_app_share_screen0"
-                                                       value="0"
-
-                                                       class="common-radio ">
-                                                <span
-                                                    class="checkmark mr-2"></span> {{__('common.No')}}
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                        </div>
-
-
-                    </div>
-                </div>
--->
-                                        </div>
                                     </div>
 
 
@@ -1015,7 +808,7 @@
                                     <div class="row mt-25">
                                         <div class="col-lg-12 text-center">
                                             <button type="submit" class="primary-btn fix-gr-bg" data-toggle="tooltip">
-                                                <i class="ti-check"></i>
+                                                <span class="ti-check"></span>
                                                 @if (isset($class))
                                                     {{ __('common.Update') }}
                                                 @else

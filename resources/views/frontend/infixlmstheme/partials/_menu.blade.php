@@ -17,7 +17,7 @@
                             <!-- header__left__start  -->
                             <div class="header__left d-flex align-items-center">
                                 <div class="logo_img">
-                                    <a href="{{url('/')}}">
+                                    <a href="{{url('/dashboard')}}">
                                         <img class="p-2" style="width: 150px" src="{{getLogoImage(Settings('logo') )}}"
                                              alt="{{ Settings('site_name')  }}">
                                     </a>
@@ -49,7 +49,7 @@
                                         <div class="input-group-prepend2">
                                             <a href="#" class="categories_menu">
                                                 <i class="fas fa-th"></i>
-                                                <span>{{__('courses.Category')}}</span>
+                                                <span>Categorías</span>
                                             </a>
                                             <div class="menu_dropdown">
                                                 <ul>
@@ -75,9 +75,9 @@
                                                 </div>
 
                                                 <input type="text" class="form-control" name="query"
-                                                       placeholder="{{__('frontend.Search for course, skills and Videos')}}"
+                                                       placeholder="Buscar curso"
                                                        onfocus="this.placeholder = ''"
-                                                       onblur="this.placeholder = '{{__('frontend.Search for course, skills and Videos')}}'">
+                                                       onblur="this.placeholder = 'Buscar curso'">
 
                                             </div>
                                         </form>
@@ -249,9 +249,9 @@
                                         </div>
                                         <div class="profile_info_iner collaps_part_content">
                                             @if(Auth::user()->role_id==3)
-                                                <a href="{{route('studentDashboard')}}">{{__('dashboard.Dashboard')}}</a>
-                                                <a href="{{route('myProfile')}}">{{__('frontendmanage.My Profile')}}</a>
-                                                <a href="{{route('myAccount')}}">{{__('frontend.Account Settings')}}</a>
+                                                <a href="{{route('myCourses')}}">Panel de control</a>
+                                                <a href="{{route('myProfile')}}">Mi perfil</a>
+                                                <a href="{{route('myAccount')}}">Ajustes de la cuenta</a>
                                                 @if(isModuleActive('Affiliate') && auth()->user()->affiliate_request!=1)
                                                     <a href="{{routeIsExist('affiliate.users.request')?route('affiliate.users.request'):''}}">{{__('frontend.Join Affiliate Program')}}</a>
                                                 @endif
@@ -271,7 +271,7 @@
                                                     </a>
                                                 @endforeach
                                             @endif
-                                            <a href="{{route('logout')}}">{{__('frontend.Log Out')}}</a>
+                                            <a href="{{route('logout')}}">Cerrar sesión</a>
                                         </div>
                                     </div>
                                 </div>

@@ -8,7 +8,7 @@
                 </a>
             </div>
             <div class="login_wrapper_content">
-                <h4>{{__('frontend.Welcome back. Please login')}} <br>{{__('frontend.to your account')}} </h4>
+                <h4>Bienvenido, por favor, inicie sesión <br>con su cuenta.</h4>
 
                 <div class="socail_links">
 

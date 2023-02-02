@@ -3,9 +3,8 @@
 namespace Modules\RolePermission\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
 //use Illuminate\Database\Eloquent\Factory;
-use Modules\RolePermission\Repositories\RoleRepository;
+use Modules\RolePermission\Repositories\RolceRepository;
 use Modules\RolePermission\Repositories\RoleRepositoryInterface;
 
 class RolePermissionServiceProvider extends ServiceProvider

@@ -105,7 +105,7 @@ return [
     'Other Sites' => 'Other Sites',
     'Teacher' => 'Teacher',
     'Business Transfer' => 'Business Transfer',
-    'Wishlist' => 'Wishlist',
+    'Bookmarks' => 'Bookmarks',
 
     'Banner Title' => 'Banner Title',
     'Banner Description' => 'Banner Description',

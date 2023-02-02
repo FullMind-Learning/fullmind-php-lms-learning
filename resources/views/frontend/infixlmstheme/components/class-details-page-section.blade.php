@@ -182,38 +182,6 @@
                                             @endif
                                         @endif
                                     @endif
-                                    @if(@$course->class->host=="InAppLiveClass")
-                                        @if($course->nextMeeting)
-                                            @php
-                                                $start = \Illuminate\Support\Carbon::parse($course->nextMeeting->date . ' ' .$course->nextMeeting->time);
-                                                 $nowDate = \Illuminate\Support\Carbon::now();
-                                                 $not_start = $start->gt($nowDate);
-
-                                                 $end =$start->addMinutes($course->nextMeeting->duration);
-                                                 $not_end =$end->gt($nowDate);
-                                            @endphp
-                                            @if(!$not_start && $not_end)
-                                                <a target="_blank"
-                                                   href="{{route('classStart', [$course->slug,'InAppLiveClass',$course->nextMeeting->id])}}"
-                                                   class="theme_btn d-block text-center height_50 mb_10">
-                                                    {{__('common.Watch Now')}}
-                                                </a>
-
-                                            @else
-                                                @if($isWaiting)
-                                                    <span
-                                                        class="theme_line_btn d-block text-center height_50 mb_10">
-                                                    {{__('frontend.Waiting')}}
-                                                </span>
-                                                @else
-                                                    <span
-                                                        class="theme_line_btn d-block text-center height_50 mb_10">
-                                                {{__('frontend.Closed')}}
-                                            </span>
-                                                @endif
-                                            @endif
-                                        @endif
-                                    @endif
 
                                 @else
                                     @if(!onlySubscription())
@@ -324,8 +292,6 @@
         $days=count($course->class->bbbMeetings);
     }elseif ($course->class->host=="Jitsi"){
         $days=count($course->class->jitsiMeetings);
-    }elseif ($course->class->host=="InAppLiveClass"){
-        $days=count($course->class->inAppMeetings);
     }
 
                                                                 $str = ($course->class->duration?? 0)*$days;
@@ -512,94 +478,10 @@
                                                                  $not_end =$end->gt($nowDate);
                                                             @endphp
                                                             @if(!$not_start && $not_end)
+                                                                )
 
                                                                 <a target="_blank"
                                                                    href="{{route('classStart', [$course->slug,'Jitsi',$meeting->id])}}"
-                                                                   class="theme_btn small_btn2 d-block text-center height_50   p-3 ">
-                                                                    {{__('common.Watch Now')}}
-                                                                </a>
-
-                                                            @else
-
-                                                                @php
-                                                                    $last_time = Illuminate\Support\Carbon::parse($meeting->date. ' ' . $meeting->time);
-                                                                   $nowDate = Illuminate\Support\Carbon::now();
-                                                                   $isWaiting = $last_time->gt($nowDate);
-
-                                                                @endphp
-                                                                @if($isWaiting)
-                                                                    <span
-                                                                        class="theme_btn small_btn2 d-block text-center height_50   p-3 ">
-                                                                    {{__('frontend.Waiting')}}
-                                                                </span>
-                                                                @else
-                                                                    <span
-                                                                        class="theme_btn small_btn2 d-block text-center height_50   p-3 ">
-                                                                    {{__('frontend.Closed')}}
-                                                                </span>
-                                                                @endif
-                                                            @endif
-                                                        </div>
-                                                    @endif
-
-
-                                                </div>
-                                            @endforeach
-                                        @elseif($course->class->host=="InAppLiveClass")
-
-                                            @foreach($course->class->inAppMeetings as $key=>$meeting)
-                                                <div class="row justify-content-between text-center p-3 m-2"
-                                                     style="border:1px solid #E1E2E6">
-                                                    <div class="{{$allow?'col-sm-3':'col-sm-4'}} margin_auto"
-                                                         style="border-right: 1px solid #E1E2E6;">
-                                                        <span>
-                                                        {{__('common.Start Date')}}
-                                                    </span>
-
-                                                        <h6 class="mb-0">{{date('d M Y',$meeting->datetime)}}  </h6>
-                                                    </div>
-                                                    <div class="{{$allow?'col-sm-3':'col-sm-4'}} margin_auto"
-                                                         style="border-right: 1px solid #E1E2E6;">
-                                                         <span>
-                                                        {{__('common.Time')}} <br>
-                                                             ({{__('common.Start')}} - {{__('common.End')}})
-                                                    </span>
-                                                        <h6 class="mb-0">{{date('g:i A',$meeting->datetime)}}
-                                                            - @if($meeting->duration==0)
-                                                                N/A
-                                                            @else
-                                                                {{date('g:i A',$meeting->datetime+($meeting->duration*60))}}
-                                                            @endif</h6>
-
-                                                    </div>
-                                                    <div class="{{$allow?'col-sm-3':'col-sm-4'}} margin_auto"
-                                                         style="{{$allow?'border-right: 1px solid #E1E2E6;':''}}">
-                                                        <span>
-                                                       {{__('common.Duration')}}
-                                                    </span>
-                                                        @php
-                                                            $str = $meeting->duration?? 0;
-                                                            $duration =preg_replace('/[^0-9]/', '', $str);
-
-                                                        @endphp
-                                                        <h6 class="mb-0 nowrap">{{MinuteFormat($duration)}}</h6>
-                                                    </div>
-
-
-                                                    @if (Auth::check() &&  $isEnrolled)
-
-                                                        <div class="col-sm-3 margin_auto">
-                                                            @php
-                                                                $start = \Illuminate\Support\Carbon::parse($meeting->date . ' ' .$meeting->time);
-                                                                 $nowDate = \Illuminate\Support\Carbon::now();
-                                                                 $not_start = $start->gt($nowDate);
-                                                                 $end =$start->addMinutes($meeting->duration);
-                                                                 $not_end =$end->gt($nowDate);
-                                                            @endphp
-                                                            @if(!$not_start && $not_end)
-
-                                                                <a target="_blank"
-                                                                   href="{{route('classStart', [$course->slug,'InAppLiveClass',$meeting->id])}}"
                                                                    class="theme_btn small_btn2 d-block text-center height_50   p-3 ">
                                                                     {{__('common.Watch Now')}}
                                                                 </a>
@@ -1149,14 +1031,14 @@
                                         @if (Auth::check() && $isBookmarked )
                                             <i class="fas fa-heart"></i>
                                             <a href="{{route('bookmarkSave',[$course->id])}}"
-                                               class="theme_button mr_10 sm_mb_10">{{__('frontend.Already In Wishlist')}}
+                                               class="theme_button mr_10 sm_mb_10">{{__('frontend.Already Bookmarked')}}
                                             </a>
                                         @elseif (Auth::check() && !$isBookmarked )
                                             <a href="{{route('bookmarkSave',[$course->id])}}"
                                                class="">
                                                 <i
                                                     class="far fa-heart"></i>
-                                                {{__('frontend.Add To Wishlist')}}  </a>
+                                                {{__('frontend.Add To Bookmark')}}  </a>
                                     @endif
 
                                 </div>

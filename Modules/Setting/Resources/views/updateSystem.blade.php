@@ -64,9 +64,8 @@
                                     <div class="row mt-40">
                                         <div class="col-lg-12 text-center">
                                             <button class="primary-btn fix-gr-bg" data-toggle="tooltip"
-                                                    type="submit"
                                                     title="{{@$tooltip}}">
-                                                <i class="ti-check"></i>
+                                                <span class="ti-check"></span>
                                                 @if(isset($session))
                                                     @lang('common.Update')
                                                 @else

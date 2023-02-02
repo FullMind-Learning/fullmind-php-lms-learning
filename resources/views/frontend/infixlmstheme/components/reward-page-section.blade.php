@@ -248,12 +248,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xxl-9 col-xl-8">
-                    {{$histories->links(theme('partials._new_pagination'))}}
-                </div>
-            </div>
 
+            {{$histories->links(theme('partials._new_pagination'))}}
         </div>
     </div>
 

@@ -5,7 +5,6 @@ namespace Modules\VirtualClass\Entities;
 use App\Traits\Tenantable;
 use Illuminate\Support\Str;
 use Modules\BBB\Entities\BbbMeeting;
-use Modules\InAppLiveClass\Entities\InAppLiveClassMeeting;
 use Modules\Zoom\Entities\ZoomMeeting;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Jitsi\Entities\JitsiMeeting;
@@ -58,11 +57,6 @@ class VirtualClass extends Model
     public function jitsiMeetings()
     {
         return $this->hasMany(JitsiMeeting::class, 'class_id')->orderBy('datetime', 'asc');
-    }
-
-    public function inAppMeetings()
-    {
-        return $this->hasMany(InAppLiveClassMeeting::class, 'class_id')->orderBy('datetime', 'asc');
     }
 
     public function totalClass()

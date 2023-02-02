@@ -9,8 +9,6 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Modules\InAppLiveClass\Entities\InAppLiveClassMeetingUser;
-use Modules\InAppLiveClass\Http\Controllers\InAppLiveClassController;
 use Modules\Payment\Entities\Cart;
 use Illuminate\Support\Facades\App;
 use MacsiDigital\Zoom\Facades\Zoom;
@@ -130,11 +128,11 @@ class VirtualClassController extends Controller
 
         try {
             $class = new VirtualClass();
-            if (isModuleActive('Membership')) {
-                if ($request->filled('is_membership')) {
+            if(isModuleActive('Membership')) {
+                if($request->filled('is_membership')) {
                     $class->is_membership = 1;
                 }
-                if ($request->filled('all_level_member')) {
+                if($request->filled('all_level_member')) {
                     $class->all_level_member = $request->all_level_member;
                 }
             }
@@ -257,7 +255,6 @@ class VirtualClassController extends Controller
             $class->duration = $request->duration;
 
             $class->total_class = $days;
-
             $class->save();
 
             if ($days != 0) {
@@ -298,29 +295,12 @@ class VirtualClassController extends Controller
                             Toastr::error('Module not installed yet', 'Error!');
                             return back();
                         }
-                    } elseif ($class->host == "InAppLiveClass") {
-
-                        if (isModuleActive('InAppLiveClass')) {
-
-                            $agoraSettings = [
-                                'chat' => $request->in_app_chat == 1 ? 1 : 0,
-                                'audio' => $request->in_app_audio == 1 ? 1 : 0,
-                                'video' => $request->in_app_video == 1 ? 1 : 0,
-                                'share_screen' => $request->in_app_share_screen == 1 ? 1 : 0,
-                            ];
-                            $class->host_setting = json_encode($agoraSettings);
-                            $class->save();
-                            $result = $this->createClassWithInAppLiveClass($class, $new_date, $request);
-                        } else {
-                            Toastr::error('Module not installed yet', 'Error!');
-                            return back();
-                        }
                     }
 
                     if (isModuleActive('Membership')) {
                         $membershipInterface = App::make(MembershipVirtualClassRepositoryInterface::class);
                         $membershipInterface->storeVirtualClassMember($request->merge([
-                            'virtual_class_id' => $class->id,
+                            'virtual_class_id'=>$class->id,
                         ]));
                     }
                 }
@@ -593,35 +573,6 @@ class VirtualClassController extends Controller
 
                         if (isModuleActive('Jitsi')) {
                             $this->createClassWithJitsi($class, $new_date, $request);
-                        } else {
-                            Toastr::error('Module not installed yet', 'Error!');
-                            return back();
-                        }
-                    }
-
-
-                }
-            } elseif ($class->host == "InAppLiveClass") {
-                $all = $class->inAppMeetings;
-
-
-                foreach ($all as $inApp) {
-                    InAppLiveClassMeetingUser::where('meeting_id', $inApp->id)->delete();
-                    $inApp->delete();
-                    $class->total_class = $class->total_class - 1;
-                    $class->save();
-
-                }
-
-                if ($totalClass != 0) {
-                    for ($i = 0;
-                         $i < $totalClass;
-                         $i++) {
-                        $new_date = date('m/d/Y', strtotime($class['start_date'] . '+' . $i . ' day'));
-
-
-                        if (isModuleActive('InAppLiveClass')) {
-                            $this->createClassWithInAppLiveClass($class, $new_date, $request);
                         } else {
                             Toastr::error('Module not installed yet', 'Error!');
                             return back();
@@ -1349,24 +1300,6 @@ class VirtualClassController extends Controller
         return $result;
     }
 
-    public function createClassWithInAppLiveClass($class, $date, $request)
-    {
-        $data = [];
-        $data['topic'] = $class->getTranslation('title', app()->getLocale());
-        $data['description'] = $class->course->getTranslation('about', app()->getLocale());
-        $data['duration'] = $request->duration;
-        $data['jitsi_meeting_id'] = $request->jitsi_meeting_id;
-        $data['instructor_id'] = Auth::user()->id;
-        $data['class_id'] = $class->id;
-        $data['date'] = $date;
-        $data['time'] = $request->time;
-
-        $meeting = new InAppLiveClassController();
-        $result = $meeting->classStore($data);
-
-        return $result;
-    }
-
 
     public function getAllVirtualClassData(Request $request)
     {
@@ -1381,13 +1314,6 @@ class VirtualClassController extends Controller
         } else {
             $query = VirtualClass::with('course', 'category', 'subCategory', 'language');
 
-        }
-
-        if (isModuleActive('Organization') && Auth::user()->isOrganization()) {
-            $query->whereHas('course.user', function ($q) {
-                $q->where('organization_id', Auth::id());
-                $q->orWhere('user_id', Auth::id());
-            });
         }
 
         return Datatables::of($query)

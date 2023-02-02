@@ -7,35 +7,68 @@ use Illuminate\Database\Eloquent\Model;
 
 interface EloquentRepositoryInterface
 {
-    public function all(array $columns = ['*'], array $relations = []): Collection;
+    /**
+     * Get all models
+     *
+     * @param array|string[] $columns
+     * @param array $relations
+     * @return Collection
+     */
+    public function all(array $columns = ['*'], array $relations = []) : Collection;
+    /**
+     * Count models
+     *
+     */
 
-    public function allActive(array $columns = ['*'], array $relations = []): Collection;
+    public function count() : int;
 
-    public function allInActive(array $columns = ['*'], array $relations = []): Collection;
+    /**
+     * Get all models
+     *
+     * @param array|string[] $columns
+     * @param array $relations
+     * @return Collection
+     */
+    public function getByCondition(array $condition, array $relations = [], array $columns = ['*']) : Collection;
 
-    public function allWithPaginate(int $parPage, array $relations = []): object;
-
-    public function count(): int;
-
-    public function getByCondition(array $condition, array $relations = [], array $columns = ['*']): Collection;
-
-
+    /**
+     * Find model by id
+     *
+     * @param int $modelId
+     * @param array|string[] $columns
+     * @param array $relations
+     * @param array $appends
+     * @return Model|null
+     */
     public function findById(
-        int   $modelId,
+        int $modelId,
         array $columns = ['*'],
         array $relations = [],
         array $appends = []
-    ): ?Model;
+    ) : ?Model;
 
-
+    /**
+     * Create a model
+     *
+     * @param array $payload
+     * @return Model|null
+     */
     public function create(array $payload): ?Model;
 
+    /**
+     * Update existing model
+     *
+     * @param int $modelId
+     * @param array $payload
+     * @return bool
+     */
+    public function update(int $modelId, array $payload) : bool;
 
-    public function update(int $modelId, array $payload): bool;
-
-    public function deleteById(int $modelId): bool;
-
-    public function allInArray(string $key, string $name): array;
-
-    public function allActiveInArray(string $key, string $name): array;
+    /**
+     * Delete model by id
+     *
+     * @param int $modelId
+     * @return bool
+     */
+    public function deleteById(int $modelId) : bool;
 }

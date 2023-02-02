@@ -30,9 +30,9 @@
     <div class="single_permission" id="{{ $Module->id }}">
         <div class="permission_header d-flex align-items-center justify-content-between">
             <div>
-                <input type="checkbox" name="module_id[]" value="{{ $Module->id }}" id="Main_Module_{{ $Module->id }}"
+                <input type="checkbox" name="module_id[]" value="{{ $Module->id }}" id="Main_Module_{{ $key }}"
                        class="common-radio permission-checkAll main_module_id_{{ $Module->id }}" {{ $role->permissions->contains('id',$Module->id) ? 'checked' : '' }} >
-                <label for="Main_Module_{{ $Module->id }}">{{ $Module->name }}</label>
+                <label for="Main_Module_{{ $key }}">{{ $Module->name }}</label>
             </div>
             @if(count($subMenus)!=0)
                 <div class="arrow collapsed" data-toggle="collapse" data-target="#Role{{ $Module->id }}"></div>

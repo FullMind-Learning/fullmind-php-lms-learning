@@ -1,11 +1,11 @@
 <div>
-    <div class="main_content_iner main_content_padding">
-        <div class="dashboard_lg_card">
-            <div class="container-fluid no-gutters">
+    <div class="main_content_iner wishList_main_content">
+        <div class="container-fluid">
+            <div class="my_courses_wrapper">
                 <div class="row">
                     <div class="col-12">
                         <div class="section__title3 margin-50">
-                            <h3>{{__('frontend.Wishlist')}}</h3>
+                            <h3>{{__('frontendmanage.Bookmarks')}}</h3>
                         </div>
                     </div>
                     <div class="col-12">
@@ -64,14 +64,7 @@
                                                 <td class="f_w_600">
                                                     <a href="{{courseDetailsUrl($bookmark->course->id,$bookmark->course->type,$bookmark->course->slug)}}"
                                                        class="theme_btn small_btn4">{{__('student.View')}}</a>
-
-                                                    @if(!onlySubscription()&& !$bookmark->course->isLoginUserEnrolled)
-                                                        <a href="{{route('addToCart',[@$bookmark->course->id])}}"
-                                                           class="theme_btn small_btn4">{{__('common.Add To Cart')}}</a>
-                                                    @endif
                                                 </td>
-
-
                                             </tr>
                                         @endforeach
                                     @endif

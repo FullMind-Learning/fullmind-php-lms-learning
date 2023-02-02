@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="box_header d-flex flex-wrap align-items-center justify-content-between">
-                                <h5 class="font_16 f_w_500 mb_30">{{$total}} {{__('frontend.Course are found')}}</h5>
+                                <h5 class="font_16 f_w_500 mb_30">Cursos encontrados: {{$total}}</h5>
                                 <div class="box_header_right mb_30">
                                     <div class="short_select d-flex align-items-center">
                                         <div class="mobile_filter mr_10">
@@ -34,7 +34,7 @@
                                                 </g>
                                             </svg>
                                         </div>
-                                        <h5 class="mr_10 font_16 f_w_500 mb-0">{{__('frontend.Order By')}}:</h5>
+                                        <h5 class="mr_10 font_16 f_w_500 mb-0">Ordenar por:</h5>
                                         <select class="small_select" id="order">
                                             <option data-display="None">{{__('frontend.None')}}</option>
                                             <option

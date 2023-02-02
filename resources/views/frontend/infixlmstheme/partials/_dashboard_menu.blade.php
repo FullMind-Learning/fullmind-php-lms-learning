@@ -57,9 +57,9 @@
                 </div>
 
                 <input type="text" class="form-control" name="query"
-                       placeholder="{{__('frontend.Search for course, skills and Videos')}}"
+                       placeholder="Buscar curso"
                        onfocus="this.placeholder = ''"
-                       onblur="this.placeholder = '{{__('frontend.Search for course, skills and Videos')}}'">
+                       onblur="this.placeholder = 'Buscar Curso'">
 
             </div>
         </form>
@@ -96,16 +96,16 @@
                             <div class="d-flex align-items-center justify-content-between flex-wrap px-3">
 
                                 <a href="{{route('myNotification')}}"
-                                   class="readMore_text w-50  ">{{__('common.View All')}}</a>
+                                   class="readMore_text w-50  ">Ver todas</a>
 
                                 <a href="{{route('NotificationMakeAllRead')}}"
-                                   class="readMore_text  w-50">{{__('common.Mark As Read')}}</a>
+                                   class="readMore_text  w-50">Marcar como leidas</a>
 
                             </div>
                         </div>
                     </div>
                 </li>
-                <li>
+                <!--<li>
                     <a href="{{route('myWishlists')}}">
                         <div class="notify_icon">
                             <img src="{{asset('/public/frontend/infixlmstheme/')}}/img/svg/heart.svg" alt="">
@@ -124,7 +124,7 @@
                             <span class="notify_count "></span>
                         @endif
                     </a>
-                </li>
+                </li>-->
 
                 @if(isModuleActive('Chat'))
                     <li class="scroll_notification_list">
@@ -179,9 +179,8 @@
 
             </div>
             <div class="profile_info_iner collaps_part_content">
-                <a href="{{url('/')}}">{{__('frontendmanage.Home')}}</a>
-                <a href="{{route('myProfile')}}">{{__('frontendmanage.My Profile')}}</a>
-                <a href="{{route('myAccount')}}">{{__('frontend.Account Settings')}}</a>
+                <a href="{{route('myProfile')}}">Mi perfil</a>
+                <a href="{{route('myAccount')}}">Ajustes de la cuenta</a>
                 @if(isModuleActive('Affiliate') && $user->affiliate_request!=1)
                     <a href="{{routeIsExist('affiliate.users.request')?route('affiliate.users.request'):''}}">{{__('frontend.Join Affiliate Program')}}</a>
                 @endif
@@ -197,7 +196,7 @@
                         </a>
                     @endforeach
                 @endif
-                <a href="{{route('logout')}}">{{__('frontend.Log Out')}}</a>
+                <a href="{{route('logout')}}">Cerrar sesión</a>
             </div>
         </div>
     </div>

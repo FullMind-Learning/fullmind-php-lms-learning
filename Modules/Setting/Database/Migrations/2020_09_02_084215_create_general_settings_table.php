@@ -97,7 +97,7 @@ class CreateGeneralSettingsTable extends Migration
                 'logo' => 'public/uploads/settings/logo.png',
                 'logo2' => 'public/uploads/settings/logo.png',
                 'favicon' => 'public/uploads/settings/favicon.png',
-                'system_version' => '5.5.0',
+                'system_version' => '5.4.0',
                 'zip_code' => '1205',
                 'active_status' => '1',
                 'copyright_text' => 'Copyright © 2021 InfixLMS. All rights reserved | Made By CodeThemes ',

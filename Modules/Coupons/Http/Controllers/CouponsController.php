@@ -23,7 +23,7 @@ class CouponsController extends Controller
     public function invitebyCode()
     {
         $user_wise_coupons = UserWiseCoupon::all();
-        $categories = Category::orderBy('position_order', 'asc')->get();
+        $categories = Category::orderBy('position_order','asc')->get();
         if (Auth::user()->role_id == 1) {
             $roles = Role::all();
         } elseif (Auth::user()->role_id == 2) {
@@ -141,32 +141,16 @@ class CouponsController extends Controller
     public function coupon_single(Request $request)
     {
         try {
-            $categories = Category::orderBy('position_order', 'asc')->get();
-            $query = Coupon::with('totalUsed')->where('category', 2);
-            if (isModuleActive('Organization') && Auth::user()->isOrganization()) {
-                $query->whereHas('user', function ($q) {
-                    $q->where('organization_id', Auth::id());
-                    $q->orWhere('user_id', Auth::id());
-                });
-            }
-
-            $coupons = $query->latest()->get();
+            $categories = Category::orderBy('position_order','asc')->get();
+            $coupons = Coupon::with('totalUsed')->where('category', 2)->latest()->get();
             $edit = Coupon::find($request->id);
             if (!empty($edit)) {
-                $subcategories = Category::where('parent_id', $edit->category_id)->orderBy('position_order', 'asc')->get();
+                $subcategories = Category::where('parent_id', $edit->category_id)->orderBy('position_order','asc')->get();
                 $edit->subcategories = $subcategories;
-                $courseQuery = Course::where('category_id', $edit->category_id);
-                if (!empty($edit->subcategory_id)) {
+                $courseQuery =Course::where('category_id', $edit->category_id);
+                if (!empty($edit->subcategory_id)){
                     $courseQuery->where('subcategory_id', $edit->subcategory_id);
                 }
-
-                if (isModuleActive('Organization') && Auth::user()->isOrganization()) {
-                    $courseQuery->whereHas('user', function ($q) {
-                        $q->where('organization_id', Auth::id());
-                        $q->orWhere('user_id', Auth::id());
-                    });
-                }
-
                 $courses = $courseQuery->get();
                 $edit->courses = $courses;
 
@@ -181,24 +165,9 @@ class CouponsController extends Controller
     public function coupon_personalized(Request $request)
     {
         try {
-
-            $query = Coupon::with('totalUsed')->where('category', 3);
-            if (isModuleActive('Organization') && Auth::user()->isOrganization()) {
-                $query->whereHas('user', function ($q) {
-                    $q->where('organization_id', Auth::id());
-                    $q->orWhere('user_id', Auth::id());
-                });
-            }
-            $coupons = $query->latest()->get();
+            $users = User::where('role_id', 3)->get();
+            $coupons = Coupon::with('totalUsed')->where('category', 3)->latest()->get();
             $edit = Coupon::find($request->id);
-
-            $query2 = User::where('role_id', 3);
-            if (isModuleActive('Organization') && Auth::user()->isOrganization()) {
-                $query2->where('organization_id', Auth::id());
-                $query2->orWhere('id', Auth::id());
-            }
-            $users = $query2->get();
-
             return view('coupons::personalized_coupons', compact('edit', 'coupons', 'users'));
         } catch (\Exception $e) {
             return response()->json(['error' => trans("lang.Oops, Something Went Wrong")]);
@@ -209,16 +178,7 @@ class CouponsController extends Controller
     public function index()
     {
         try {
-            $query = Coupon::with('totalUsed');
-
-            if (isModuleActive('Organization') && Auth::user()->isOrganization()) {
-                $query->whereHas('user', function ($q) {
-                    $q->where('organization_id', Auth::id());
-                    $q->orWhere('user_id', Auth::id());
-                });
-            }
-
-            $coupons = $query->latest()->get();
+            $coupons = Coupon::with('totalUsed')->latest()->get();
             return view('coupons::coupons', compact('coupons',));
         } catch (\Exception $e) {
             return response()->json(['error' => trans("lang.Oops, Something Went Wrong")]);
@@ -229,14 +189,7 @@ class CouponsController extends Controller
     public function coupon_common()
     {
         try {
-            $query = Coupon::with('totalUsed')->where('category', 1);
-            if (isModuleActive('Organization') && Auth::user()->isOrganization()) {
-                $query->whereHas('user', function ($q) {
-                    $q->where('organization_id', Auth::id());
-                    $q->orWhere('user_id', Auth::id());
-                });
-            }
-            $coupons = $query->latest()->get();
+            $coupons = Coupon::with('totalUsed')->where('category', 1)->latest()->get();
             return view('coupons::common_coupons', compact('coupons'));
         } catch (\Exception $e) {
             return response()->json(['error' => trans("lang.Oops, Something Went Wrong")]);
@@ -314,17 +267,7 @@ class CouponsController extends Controller
     {
         try {
             $edit = Coupon::find($id);
-
-            $query = Coupon::with('totalUsed');
-
-            if (isModuleActive('Organization') && Auth::user()->isOrganization()) {
-                $query->whereHas('user', function ($q) {
-                    $q->where('organization_id', Auth::id());
-                    $q->orWhere('user_id', Auth::id());
-                });
-            }
-
-            $coupons = $query->latest()->get();
+            $coupons = Coupon::with('totalUsed')->latest()->get();
             return view('coupons::coupons', compact('coupons', 'edit'));
         } catch (\Exception $e) {
             return response()->json(['error' => trans("lang.Oops, Something Went Wrong")]);

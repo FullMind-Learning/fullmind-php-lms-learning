@@ -19,23 +19,8 @@
             </div>
             <h4>{{\Illuminate\Support\Facades\Auth::user()->name}}</h4>
             <div class="sidebar-badge">
-                @php
-                    $already=[];
-                @endphp
                 @foreach(\Illuminate\Support\Facades\Auth::user()->userLatestBadges as $badge)
-                    @php
-                        $b =$badge->badge;
-
-                        if (in_array($b->type,$already)){
-                            continue;
-                        }else{
-                            $already[]=$b->type;
-                        }
-                    @endphp
-                    <div class="sidebar-badge-list"
-                         title="{{$b->title}} {{ucfirst($b->type)}} {{trans('setting.Badge')}}">
-                        <img
-                            src="{{asset($b->image)}}" alt=""></div>
+                    <div class="sidebar-badge-list"><img src="{{asset($badge->badge->image)}}" alt=""></div>
                 @endforeach
 
             </div>
@@ -63,12 +48,6 @@
         @else
             @if(isset($sections))
                 @foreach($sections as $key => $section)
-                    @php
-                        $count = $section->permissions->count();
-                        if ($count == 0){
-                            continue;
-                        }
-                    @endphp
                     @if(!empty($section->name))
                         <span class="menu_seperator">
                     {{$section->name}}
@@ -80,12 +59,7 @@
                                 $submenus =$section->activeSubmenus->where('parent_route',$menu->route)->where('parent_route','!=','dashboard');
                                 if(hasDynamicPage()){
                                     $ignoreDynamicPage=[
-//                                        'frontend.homeContent',
-                                        'frontend.privacy_policy',
-                                        'frontend.privacy_policy',
-                                        'frontend.AboutPage',
-                                        'frontend.ContactPageContent',
-//                                        'frontend.pageContent'
+                                        'frontend.homeContent','frontend.privacy_policy','frontend.privacy_policy','frontend.AboutPage','frontend.ContactPageContent','frontend.pageContent'
                                 ];
                                    $submenus =   $submenus->whereNotIn('route',$ignoreDynamicPage);
                                 }

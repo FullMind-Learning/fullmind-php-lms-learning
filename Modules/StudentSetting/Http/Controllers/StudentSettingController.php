@@ -515,7 +515,6 @@ class StudentSettingController extends Controller
             if (isModuleActive('Organization') && Auth::user()->isOrganization()) {
                 $query->whereHas('user', function ($q) {
                     $q->where('organization_id', Auth::id());
-                    $q->orWhere('user_id', Auth::id());
                 });
             }
 

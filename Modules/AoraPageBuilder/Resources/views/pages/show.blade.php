@@ -42,11 +42,6 @@
 
 @section('scripts')
     <script src="{{asset('public/frontend/infixlmstheme/js/courses.js')}}"></script>
-
-    <script>
-        $('.ui-resizable-resizer').remove()
-    </script>
-
     {{--    <script type="text/javascript" data-aoraeditor="script">--}}
     {{--        $(function () {--}}
     {{--            aoraEditor.loadDynamicContent($('.dynamicData'));--}}

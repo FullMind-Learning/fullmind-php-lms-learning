@@ -557,14 +557,14 @@
                                         @if (Auth::check() && $isBookmarked )
                                             <i class="fas fa-heart"></i>
                                             <a href="{{route('bookmarkSave',[$course->id])}}"
-                                               class=" mr_10 sm_mb_10">{{__('frontend.Already In Wishlist')}}
+                                               class=" mr_10 sm_mb_10">{{__('frontend.Already Bookmarked')}}
                                             </a>
                                         @elseif (Auth::check() && !$isBookmarked )
                                             <a href="{{route('bookmarkSave',[$course->id])}}"
                                                class="">
                                                 <i
                                                     class="far fa-heart"></i>
-                                                {{__('frontend.Add To Wishlist')}}  </a>
+                                                {{__('frontend.Add To Bookmark')}}  </a>
                                     @endif
                                 </div>
                                 @if(!onlySubscription())

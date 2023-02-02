@@ -65,7 +65,7 @@
 }
 
 .edit_icon {
-    /*visibility: hidden !important;*/
+    visibility: hidden !important;
 }
 
 #itemDiv .listed_menu:hover .edit_icon {

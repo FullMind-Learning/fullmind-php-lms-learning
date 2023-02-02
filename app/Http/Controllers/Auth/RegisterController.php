@@ -204,17 +204,10 @@ class RegisterController extends Controller
 
         event(new Registered($user));
 
-
         $this->guard()->login($user);
-
-
         if ($user->role_id == 3) {
             $loginController = new LoginController();
             $loginController->multipleLogin($request);
-
-
-            checkGamification('each_login', 'activity');
-            checkGamificationReg();
         }
 
 

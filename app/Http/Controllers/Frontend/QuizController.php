@@ -231,7 +231,7 @@ class QuizController extends Controller
 
             $quiz = OnlineQuiz::find($quiz_test->quiz_id);
 
-            if ($quiz_test->publish == 1 && (int)getPercentage($score, $quiz->totalMarks()) >= 90) {
+            if ((int)getPercentage($score, $quiz->totalMarks()) >= 90) {
                 checkGamification('each_perfectionism', 'perfectionism');
             }
             $websiteController = new WebsiteController();

@@ -1,5 +1,4 @@
 <div>
-
     <table id="" class="table  branchList ">
         <tbody>
         @if(!empty($branches))
@@ -104,24 +103,6 @@
                 });
 
             }*/
-            $(document).on("click", ".changeOrgStatus", function () {
-                $.LoadingOverlay("show");
-            });
-
-
-            // window.livewire.on('addBranchFilter', message => {
-            //     setInterval(function(){
-            //         $.LoadingOverlay("hide");
-            //     }, 2000);
-            //
-            // })
-
-            Livewire.hook('element.updated', (el,component) => {
-                if(component.name=='show-branch') {
-                    $.LoadingOverlay("hide");
-                }
-            })
-
 
             $(document).on("click", ".btn-header-link", function () {
                 var id = $(this).data('branch_id');

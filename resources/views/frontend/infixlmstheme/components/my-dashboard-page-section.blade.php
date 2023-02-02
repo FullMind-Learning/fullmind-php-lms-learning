@@ -2,11 +2,11 @@
     @php
         $total =\Illuminate\Support\Facades\Auth::user()->totalStudentCourses();
 
-
+        $notification_count =Auth::user()->notifications->count();
 
         $isGamification =Settings('gamification_status') && Settings('gamification_leaderboard_show_badges_status');
 
-        if (count($noticeboards)==0 && !$isGamification){
+        if ($notification_count==0 && !$isGamification){
             $col =12;
             $item =4;
         }else{
@@ -29,7 +29,6 @@
                 <div class="col-12">
                     <div class="dashboard_title">
                         <h3>{{@$wish_string}}, <span>{{Auth::user()->name}}</span></h3>
-                        <p>{{@$date}}</p>
                     </div>
                 </div>
             </div>
@@ -37,7 +36,7 @@
             <div class="row">
                 <div class="col-xl-{{$col}} col-12">
                     <div class="row">
-                        <div class="col-lg-{{$item}} col-md-4 col-sm-{{$item}}">
+                        <!--<div class="col-lg-{{$item}} col-md-4 col-sm-{{$item}}">
                             <div class="dashboard_card text-center">
                                 <div class="icon mx-auto">
                                     <svg width="75" height="75" viewBox="0 0 75 75" fill="none"
@@ -68,8 +67,8 @@
                                     @endif
                                 </h4>
                             </div>
-                        </div>
-                        <div class="col-lg-{{$item}} col-md-4 col-sm-{{$item}}">
+                        </div>-->
+                        <!--<div class="col-lg-{{$item}} col-md-4 col-sm-{{$item}}">
                             <div class="dashboard_card text-center">
                                 <div class="icon mx-auto">
                                     <svg width="75" height="75" viewBox="0 0 75 75" fill="none"
@@ -104,7 +103,7 @@
                                     @endif
                                 </h4>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="col-lg-{{$item}} col-md-4 col-sm-{{$item}}">
                             <div class="dashboard_card text-center">
                                 <div class="icon mx-auto">
@@ -124,7 +123,7 @@
                                     </svg>
 
                                 </div>
-                                <span>{{__('frontend.Certificates')}}</span>
+                                <span>Certificados</span>
                                 <h4> {{\Illuminate\Support\Facades\Auth::user()->totalCertificate()}}</h4>
                             </div>
                         </div>
@@ -148,7 +147,7 @@
                                     </svg>
 
                                 </div>
-                                <span>{{__('frontend.Course In Progress')}}</span>
+                                <span>Cursos en progreso</span>
                                 <h4> {{$total['process']}}</h4>
                             </div>
                         </div>
@@ -172,7 +171,7 @@
                                     </svg>
 
                                 </div>
-                                <span>{{__('frontend.Course Purchased')}}</span>
+                                <span>Cursos inscritos</span>
                                 <h4> {{$total['total']}}</h4>
                             </div>
                         </div>
@@ -196,7 +195,7 @@
                                     </svg>
 
                                 </div>
-                                <span>{{__('frontend.Completed Courses')}}</span>
+                                <span>Cursos completados</span>
                                 <h4>{{$total['complete']}}</h4>
                             </div>
                         </div>
@@ -215,12 +214,13 @@
                                             @endphp
 
                                             <div class="dashboard_card dashboard_banner ">
-                                                <div class="thumb position-relative">
+                                                <a href="{{route('continueCourse',[$course->slug])}}"
+                                                          ><div class="thumb position-relative">
                                                     <span class="badge ml-3 mt-2">{{$course->courseLevel->title}}</span>
-                                                </div>
+                                                </div></a>
                                                 <div class="banner_info">
                                                     <div class="course_qualification mb-2">
-                                                        <a href="#"
+                                                        <a href="{{route('continueCourse',[$course->slug])}}"
                                                            class="banner_info_profile d-flex align-items-center">
                                                             <div class="img"><img
                                                                     src="{{getProfileImage($course->user->image)}}"
@@ -264,7 +264,7 @@
                                                             $margin= 'margin-left: calc(var(--width) * -1)';
                                                         }
                                                     @endphp
-                                                    <a href="#" class="title">{{$course->title}}</a>
+                                                    <a href="{{route('continueCourse',[$course->slug])}}" class="title">{{$course->title}}</a>
                                                     <div class="progress">
                                                         <div
                                                             class="progress-status"
@@ -277,9 +277,9 @@
                                                              style="width: {{$percentage}}%"></div>
                                                     </div>
                                                     <a href="{{route('continueCourse',[$course->slug])}}"
-                                                       class="theme_btn">{{__('frontend.Complete This Course')}}</a>
-                                                </div>
+                                                       class="theme_btn">Completar curso</a>
                                             </div>
+                                        </div>
 
                                         @endif
                                     @endforeach
@@ -290,30 +290,37 @@
                 </div>
 
                 <div class="col-xl-6 col-12">
-                    @if(count($noticeboards)!=0)
-
-                        <div class="dashboard_card">
+                    @if($notification_count!=0)
+                        <div class="dashboard_card dashboard_notification">
                             <div class="head d-flex align-items-center justify-content-between mb-4">
-                                <h4>{{__('frontend.Recent')}} {{__('noticeboard.Noticeboard')}}:</h4>
-                                <a href="{{route('myNoticeboard')}}">{{__('frontend.See All')}}</a>
+                                <h4>Notificaciones recientes:</h4>
+                                <a href="{{route('myNotification')}}">Ver todas</a>
                             </div>
-                            <div class="noticeboard-wrap">
-                                @foreach($noticeboards as $noticeboard)
-                                    <div class="noticeboard-card"
-                                         style="--noticeboard_bg:{{$noticeboard->noticeType->color}}">
-                                        <div class="noticeboard-card-left">
+                            <div class="dashboard_notification_list">
+                                @foreach(Auth::user()->notifications->take(5) as $notification)
+                                    @php
+                                        $text=explode('.',$notification->data['body']);
+                                    @endphp
+
+                                    <a href="{{$notification->data['actionURL']}}"
+                                       class="d-flex align-items-center justify-content-between">
+                                    <span class="content d-flex">
                                             <span
-                                                class="d-block">{{showDate($noticeboard->created_at)}}</span>
-                                            <a href="#">{{$noticeboard->title}}</a>
-                                        </div>
-                                        <div class="noticeboard-card-right">
-                                            <a href="#" data-url="{{route('showNoticeboard',$noticeboard->id)}}"
-                                               class="showNoticeboard theme-btn btn_sm">{{__('frontend.View Details')}}</a>
-                                        </div>
-                                    </div>
+                                                class="dot  @if ($notification->read_at==null) unread   @endif"></span>
+                                        <span> {!! strip_tags($notification->data['body']) !!}.</span>
+                                    </span>
+                                        <span class="bell_icon @if ($notification->read_at==null) unread   @endif ">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M14.9578 10.5655L13.4203 9.11761V5.54982C13.4407 4.22496 12.9486 2.93791 12.0349 1.92631C11.1211 0.914713 9.84732 0.246891 8.44879 0.0461548C7.63713 -0.0539454 6.81201 0.00920896 6.02848 0.231404C5.24495 0.453599 4.52103 0.829725 3.90502 1.33469C3.28902 1.83965 2.79509 2.46183 2.45619 3.15972C2.11729 3.85762 1.94122 4.61517 1.93973 5.38183V9.11761L0.402157 10.5655C0.209026 10.7494 0.0780568 10.9825 0.0256228 11.2357C-0.0268112 11.4889 0.00161617 11.751 0.107351 11.9891C0.213086 12.2273 0.391437 12.431 0.620108 12.5747C0.84878 12.7185 1.11763 12.7959 1.39304 12.7974H4.26317V13.0694C4.30307 13.8815 4.68511 14.6457 5.32557 15.1945C5.96603 15.7433 6.81268 16.0319 7.68 15.9972C8.54732 16.0319 9.39397 15.7433 10.0344 15.1945C10.6749 14.6457 11.0569 13.8815 11.0968 13.0694V12.7974H13.967C14.2424 12.7959 14.5112 12.7185 14.7399 12.5747C14.9686 12.431 15.1469 12.2273 15.2526 11.9891C15.3584 11.751 15.3868 11.4889 15.3344 11.2357C15.2819 10.9825 15.151 10.7494 14.9578 10.5655ZM9.38841 13.0694C9.34104 13.4541 9.13697 13.807 8.81872 14.0543C8.50047 14.3017 8.09257 14.4246 7.68 14.3973C7.26743 14.4246 6.85953 14.3017 6.54128 14.0543C6.22303 13.807 6.01896 13.4541 5.97159 13.0694V12.7974H9.38841V13.0694ZM2.1362 11.1975L3.14416 10.2535C3.30404 10.1047 3.43089 9.9277 3.51738 9.73275C3.60388 9.53779 3.64832 9.32872 3.64814 9.11761V5.38183C3.64861 4.84219 3.77233 4.30888 4.011 3.81769C4.24968 3.32651 4.59778 2.88883 5.03196 2.534C5.46027 2.17057 5.96781 1.89864 6.51942 1.73704C7.07104 1.57543 7.65357 1.52801 8.22669 1.59806C9.21457 1.74827 10.1112 2.22763 10.7516 2.94788C11.392 3.66813 11.733 4.58079 11.7119 5.51782V9.11761C11.7106 9.32817 11.7537 9.53689 11.8387 9.73182C11.9237 9.92675 12.049 10.104 12.2073 10.2535L13.2238 11.1975H2.1362Z"
+                                                fill="currentColor"/>
+                                        </svg>
+
+                                    </span>
+                                    </a>
                                 @endforeach
                             </div>
-
                         </div>
                     @endif
                     @if(Settings('gamification_status') && Settings('gamification_leaderboard_show_badges_status'))
@@ -326,8 +333,7 @@
                                 @foreach($badges as $badge)
                                     <div class="dashboard_badge_item text-center">
                                         <p>{{$badge->title}} -
-                                            <small>{{ucfirst($badge->type).' '.trans('setting.Badge')}}</small>
-                                        </p>
+                                            <small>{{ucfirst($badge->type).' '.trans('setting.Badge')}}</small></p>
                                         <div class="img"><img
                                                 src="{{asset($badge->image)}}"
                                                 alt=""></div>

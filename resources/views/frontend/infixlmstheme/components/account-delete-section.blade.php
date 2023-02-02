@@ -13,16 +13,16 @@
                         </div>
                         <div class="account_profile_form">
                             <div class="account_title">
-                                <h3 class="font_22 f_w_700 ">{{__('student.Delete account')}}</h3>
-                                <p class="mb_25 font_1 f_w_500 theme_text2">{{__('student.If you delete your account, your data will be gone forever')}}
+                                <h3 class="font_22 f_w_700 ">Eliminar cuenta</h3>
+                                <p class="mb_25 font_1 f_w_500 theme_text2">Si eliminas tu cuenta, tus datos desaparecerán para siempre
                                 </p>
                             </div>
 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <label class="primary_label2">{{__('student.Email Address')}}</label>
+                                    <label class="primary_label2">Email</label>
                                     <div class="">
-                                        <input name="email" placeholder="{{__('student.Email Address')}}"
+                                        <input name="email" placeholder="email"
                                                value="{{$account->email}}"
                                                onfocus="this.placeholder = ''"
                                                readonly
@@ -40,9 +40,9 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-lg-12 mb_20">
-                                                                            <span class="primary_label2">{{__('frontend.Existing Password')}} <span
+                                                                            <span class="primary_label2">Contraseña <span
                                                                                     class="text-danger">*</span></span>
-                                        <input type="password" placeholder="{{__('student.Type existing password')}}"
+                                        <input type="password" placeholder="Contraseña"
                                                class="primary_input4  {{ @$errors->has('existing_password') ? ' is-invalid' : '' }}"
                                                name="old_password" {{$errors->has('old_password') ? 'autofocus' : ''}}>
 
@@ -52,7 +52,7 @@
 
                                     <div class="col-12 ">
                                         <button type="submit"
-                                                class="theme_btn mt-3 text-center">{{__('student.Delete account')}}</button>
+                                                class="theme_btn mt-3 text-center">Eliminar cuenta</button>
                                     </div>
                                 </div>
 

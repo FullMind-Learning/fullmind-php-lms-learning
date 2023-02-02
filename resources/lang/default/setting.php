@@ -517,8 +517,5 @@ return [
     'Days' => 'Days',
     'Badge' => 'Badge',
     'Student Panel Logo' => 'Student Panel Logo',
-    'Upload Student Panel Logo' => 'Upload Student Panel Logo',
-    'App Certificate' => 'App Certificate',
-    'App ID'=>'App ID',
-    'Click Here to Get APP ID & Certificate'=>'Click Here to Get APP ID & Certificate'
+    'Upload Student Panel Logo' => 'Upload Student Panel Logo'
 ];

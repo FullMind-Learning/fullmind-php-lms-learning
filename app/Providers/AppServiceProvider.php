@@ -237,7 +237,24 @@ class AppServiceProvider extends ServiceProvider
                 $view->with($data);
             });
 
-
+            View::composer([
+                'frontend.infixlmstheme.partials._sidebar',
+                'backend.partials.sidebar'
+            ], function ($view) {
+//                $data = [];
+//                if (Schema::hasTable('badges')) {
+//                    $data['reg_badges'] = Badge::select('title', 'image', 'point')->where('type', 'registration')->where(function ($query) {
+//                        $totalDay = 0;
+//                        if (Auth::check()) {
+//                            $created = new Carbon(Auth::user()->created_at);
+//                            $now = Carbon::now();
+//                            $totalDay = $now->diffInDays($created);
+//                        }
+//                        $query->where('point', '<=', $totalDay);
+//                    })->orderBy('point', 'asc')->get();
+//                }
+//                $view->with($data);
+            });
         } catch (\Exception $e) {
             Log::info($e->getMessage());
         }

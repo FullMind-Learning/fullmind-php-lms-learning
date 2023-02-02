@@ -39,7 +39,7 @@
                                                     @endphp
                                                     @if ($notification->read_at==null)
                                                         <a href="#" class="unread_notification"
-                                                           id="{{$notification->id}}" title="Mark As Read"
+                                                           id="{{$notification->id}}" title="Marcar como leido"
                                                            data-notification_id="{{$notification->id}}">
 
                                                             <p class="notifi_par notify_{{$notification->id}}">

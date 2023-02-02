@@ -6,12 +6,6 @@
 
             @if(isset($sections))
                 @foreach($sections as $section)
-                    @php
-                        $count = $section->permissions->count();
-                        if ($count == 0){
-                            continue;
-                        }
-                    @endphp
                     <li class="preview_section">
                         {{__(@$section->name)}}
                     </li>

@@ -17,7 +17,6 @@ class AdminMiddleware
     public function handle($request, Closure $next)
     {
         if (Auth::check() && (Auth::user()->role_id != 3)) {
-            $request->merge(["loginUser" => Auth::user()]);
             return $next($request);
         } elseif (Auth::check() && Auth::user()->role_id == 3) {
             return redirect()->to(route('studentDashboard'));

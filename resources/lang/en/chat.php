@@ -1,5 +1,5 @@
 <?php
-return [
+return[
     'or' => 'or',
     'username' => 'Username',
     'email' => 'Email',
@@ -118,7 +118,5 @@ return [
     'can_upload_file' => 'Can Upload File',
     'open_chat_system' => 'Open Chat System',
     'admin_can_chat_without_invitation' => 'Admin Can Chat Without Invitation',
-    'search_result_of' => 'Search result of',
-    'chat_not_active' => 'Chat Disabled',
-    'chat_not_active_hint' => 'Chat is not available for this class'
+    'search_result_of' =>'Search result of'
 ];

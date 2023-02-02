@@ -2,9 +2,7 @@
 
 namespace App\View\Components;
 
-use App\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\View\Component;
 use Illuminate\Support\Facades\Auth;
 use Modules\Certificate\Entities\CertificateRecord;
@@ -25,7 +23,7 @@ class MyDashboardPageSection extends Component
     public function render()
     {
         ;
-        $data['user'] = $user = Auth::user();
+        $data['user'] = Auth::user();
         $enrolledByUser = CourseEnrolled::where('user_id', Auth::user()->id)->orderBy('last_view_at', 'desc');
 
         $total_spent = $enrolledByUser->sum('purchase_price');
@@ -35,11 +33,11 @@ class MyDashboardPageSection extends Component
         $Hour = date('G');
 
         if ($Hour >= 5 && $Hour <= 11) {
-            $wish_string = trans("student.Good Morning");
+            $wish_string = trans("Buen día");
         } else if ($Hour >= 12 && $Hour <= 18) {
-            $wish_string = trans("student.Good Afternoon");
+            $wish_string = trans("Buenas tardes");
         } else if ($Hour >= 19 || $Hour <= 4) {
-            $wish_string = trans("student.Good Evening");
+            $wish_string = trans("Good Evening");
         }
         $date = Carbon::now(Settings('active_time_zone'))->format("jS F Y \, l");
 
@@ -105,25 +103,6 @@ class MyDashboardPageSection extends Component
                 ->get();
         }
 
-        $data['noticeboards'] = [];
-        $hasNoticeboard = Schema::hasTable('noticeboards');
-        if ($hasNoticeboard) {
-            $courseId = $user->studentCourses->pluck('course_id')->toArray();
-
-
-            $query = \Modules\Noticeboard\Entities\Noticeboard::where('status', 1)->with('noticeType');
-
-            if (isModuleActive('Organization') && !empty($user->organization_id)) {
-                $query->whereHas('user', function ($q) use ($user) {
-                    $q->where('id', $user->organization_id);
-                });
-            }
-            $data['noticeboards'] = $query->whereHas('assign', function ($q) use ($courseId, $user) {
-                $q->whereIn('course_id', $courseId);
-                $q->orWhere('role_id', $user->role_id);
-            })->latest()->limit(5)->get();
-        }
-
-        return view(theme('components.my-dashboard-page-section'), $data, compact('badges', 'myCertificateNumber', 'quizzes', 'courses', 'classes', 'data', 'mycourse', 'wish_string', 'date', 'total_purchase', 'student_setup', 'total_spent'));
+        return view(theme('components.my-dashboard-page-section'), compact('badges', 'myCertificateNumber', 'quizzes', 'courses', 'classes', 'data', 'mycourse', 'wish_string', 'date', 'total_purchase', 'student_setup', 'total_spent'));
     }
 }

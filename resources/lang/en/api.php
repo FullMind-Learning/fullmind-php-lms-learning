@@ -369,9 +369,5 @@ return [
     'Multiple Time' => 'Multiple Time',
     'LOGGING YOU OUT' => 'LOGGING YOU OUT',
     'See you again soon' => 'See you again soon',
-    'Limitless' => 'Limitless',
-    'Delete' => 'Delete',
-    'Setting' => 'Setting',
-    'Notification' => 'Notification',
-    'Single Time' => 'Single Time'
+    'Limitless'=>'Limitless'
 ];

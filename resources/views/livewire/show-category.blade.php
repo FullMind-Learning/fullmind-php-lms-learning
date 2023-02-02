@@ -10,17 +10,14 @@
     </table>
 
     @push('js')
-
-        <script>
-            $(document).on("click", ".changeOrgStatus", function () {
-                $.LoadingOverlay("show");
-            });
-
-            Livewire.hook('element.updated', (el,component) => {
-                if(component.name=='show-category') {
-                    $.LoadingOverlay("hide");
-                }
-            })
-        </script>
+        {{--        <script>--}}
+        {{--            $(document).on("click", ".activeCategoryCode", function () {--}}
+        {{--                if ($(this).hasClass('active')) {--}}
+        {{--                    $(this).removeClass('active');--}}
+        {{--                } else {--}}
+        {{--                    $(this).addClass('active');--}}
+        {{--                }--}}
+        {{--            });--}}
+        {{--        </script>--}}
     @endpush
 </div>

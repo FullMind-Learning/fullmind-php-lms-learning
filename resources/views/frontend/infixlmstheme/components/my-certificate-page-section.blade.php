@@ -8,7 +8,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="section__title3 mb_40">
-                                    <h3 class="mb-0">{{__('certificate.My Certificates')}}</h3>
+                                    <h3 class="mb-0">Certificados</h3>
                                     <h4></h4>
                                 </div>
                             </div>
@@ -16,7 +16,7 @@
                         @if(count($certificate_records)==0)
                             <div class="col-12">
                                 <div class="section__title3 margin_50">
-                                    <p class="text-center">{{__('certificate.Certificate Not Found!')}}</p>
+                                    <p class="text-center">No hay certificados disponibles</p>
                                 </div>
                             </div>
                         @else
@@ -26,17 +26,17 @@
                                         <table class="table custom_table3 mb-0">
                                             <thead>
                                             <tr>
-                                                <th scope="col">{{__('common.SL')}}</th>
-                                                <th scope="col">{{__('common.Date')}}</th>
-                                                <th scope="col">{{__('common.Course')}}</th>
-                                                <th scope="col">{{__('certificate.Certificate No')}}</th>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Fecha</th>
+                                                <th scope="col">Curso</th>
+                                                <th scope="col">Número de certificado</th>
                                                 @if(isModuleActive('MyClass'))
                                                     <th scope="col">{{__('class.Transcript')}}</th>
                                                 @endif
                                                 @if(isModuleActive('Invoice'))
                                                     <th scope="col">{{__('invoice.Printed Certificate')}}</th>
                                                 @endif
-                                                <th scope="col" style="text-align: center">{{__('common.Action')}}</th>
+                                                <th scope="col" style="text-align: center">Acción</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -59,7 +59,7 @@
                                                             <td>
                                                                 <a href="{{ route('get-transcript', [$certificate->course_id, auth()->user()->id]) }}"
                                                                    class="link_value theme_btn small_btn4"
-                                                                   target="__blank">{{ __('common.View') }}</a>
+                                                                   target="__blank">Ver</a>
                                                                 <a href="{{ route('get-transcript', [$certificate->course_id, auth()->user()->id, 'download']) }}"
                                                                    class="link_value theme_btn small_btn4">{{ __('common.Download') }}</a>
                                                             </td>
@@ -86,9 +86,9 @@
                                                         @endif
                                                         <td>
                                                             <a href="{{route('certificateDownload',$certificate->certificate_id)}}"
-                                                               class="link_value theme_btn small_btn4">{{__('common.Download')}}</a>
+                                                               class="link_value theme_btn small_btn4">Dewcargar</a>
                                                             <a href="{{route('certificateCheck',$certificate->certificate_id)}}"
-                                                               class="link_value theme_btn small_btn4">{{__('common.View')}}</a>
+                                                               class="link_value theme_btn small_btn4">Ver</a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

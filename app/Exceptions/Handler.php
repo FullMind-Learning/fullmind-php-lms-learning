@@ -43,7 +43,7 @@ class Handler extends ExceptionHandler
             if ($exception
                 instanceof
                 ModelNotFoundException) {
-                abort(404, '');
+                abort(404);
             }
 
 

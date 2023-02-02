@@ -4,7 +4,7 @@
 @else
     <nav class="sidebar">
         <div class="logo d-flex justify-content-between">
-            <a href="{{url('/')}}"><img src="{{getCourseImage(Settings('logo3')?Settings('logo3'):Settings('logo'))}}"
+            <a href="{{url('/dashboard')}}"><img src="public/uploads/main/images/31-01-2023/logo_white.png"
                                         alt=""></a>
             <div class="sidebar_close_icon d-lg-none">
                 <i class="ti-close"></i>
@@ -17,23 +17,9 @@
                 </div>
                 <h4>{{\Illuminate\Support\Facades\Auth::user()->name}}</h4>
                 <div class="sidebar-badge">
-                    @php
-                        $already=[];
-                    @endphp
-                    @foreach(\Illuminate\Support\Facades\Auth::user()->userLatestBadges as $badge)
-                        @php
-                            $b =$badge->badge;
 
-                            if (in_array($b->type,$already)){
-                                continue;
-                            }else{
-                                $already[]=$b->type;
-                            }
-                        @endphp
-                        <div class="sidebar-badge-list"
-                             title="{{$b->title}} {{ucfirst($b->type)}} {{trans('setting.Badge')}}">
-                            <img
-                                src="{{asset($b->image)}}" alt=""></div>
+                    @foreach(\Illuminate\Support\Facades\Auth::user()->userLatestBadges as $badge)
+                        <!--<div class="sidebar-badge-list"><img src="{{asset($badge->badge->image)}}" alt=""></div>-->
                     @endforeach
 
                 </div>
@@ -41,7 +27,7 @@
             <!-- new sidebar end -->
 
             <ul class="list-unstyled pt-0">
-                @if (permissionCheck('studentDashboard'))
+               <!-- @if (permissionCheck('studentDashboard'))
                     <li>
                         <a href="{{route('studentDashboard')}}"
                            class="  d-flex align-items-center {{ routeIs('studentDashboard')  ? 'active' : '' }}">
@@ -54,10 +40,10 @@
                                 </svg>
 
                             </div>
-                            <span>{{__('common.Dashboard')}}</span>
+                            <span>Panel de control</span>
                         </a>
                     </li>
-                @endif
+                @endif-->
                 @if (permissionCheck('myCourses'))
 
                     <li>
@@ -71,7 +57,7 @@
                                         fill="currentColor"/>
                                 </svg>
                             </div>
-                            <span>{{__('common.My Courses')}}</span>
+                            <span>Mis cursos</span>
                         </a>
                     </li>
                 @endif
@@ -89,11 +75,11 @@
                                 </svg>
 
                             </div>
-                            <span>{{__('common.My Quizzes')}}</span>
+                            <span>Cuestionarios</span>
                         </a>
                     </li>
                 @endif
-                @if (permissionCheck('myClasses'))
+                <!--@if (permissionCheck('myClasses'))
 
                     <li>
                         <a href="{{route('myClasses')}}"
@@ -337,7 +323,7 @@
                     </a>
                 </li>
                 @if(isModuleActive('BundleSubscription'))
-                @endif
+                @endif-->
                 @if (permissionCheck('myCertificate'))
                     <li>
                         <a href="{{route('myCertificate')}}"
@@ -352,7 +338,7 @@
                                 </svg>
 
                             </div>
-                            <span>{{__('certificate.Certificate')}}</span>
+                            <span>Certificados</span>
                         </a>
                     </li>
                 @endif
@@ -393,7 +379,7 @@
                         </a>
                     </li>
                 @endif
-                @if (permissionCheck('myPurchases'))
+               <!-- @if (permissionCheck('myPurchases'))
                     <li>
                         <a href="{{route('myPurchases')}}"
                            class=" d-flex align-items-center  {{ routeIs('myPurchases')  ? 'active' : '' }}">
@@ -410,7 +396,7 @@
                             <span>{{__('common.Purchase History')}}</span>
                         </a>
                     </li>
-                @endif
+                @endif-->
                 @if (permissionCheck('enrollmentCancellation'))
                     <li>
                         <a href="{{route('enrollmentCancellation')}}"
@@ -443,7 +429,7 @@
                                 </svg>
 
                             </div>
-                            <span>{{__('frontendmanage.My Profile')}}</span>
+                            <span>Mi perfil</span>
                         </a>
                     </li>
                 @endif
@@ -463,7 +449,7 @@
                                 </svg>
 
                             </div>
-                            <span>{{__('frontend.Account Settings')}}</span>
+                            <span>Ajustes de la cuenta</span>
                         </a>
                     </li>
                 @endif
@@ -515,10 +501,29 @@
                                 </svg>
 
                             </div>
-                            <span>{{__('common.Logged In Devices')}}</span>
+                            <span>Dispositivos conectados</span>
                         </a>
                     </li>
                 @endif
+                @if (permissionCheck('logged.in.devices'))
+                    <li>
+                        <a href="https://lms.fullmind.cl/contact-us"
+                           class=" d-flex align-items-center">
+                            <div class="menu_icon">
+<svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M1.32007 12.086L1.02328 8.77534C0.701996 4.91262 3.7235 1 9.00889 1C14.2942 1 17.3157 4.91262 16.9944 8.77534L16.6977 12.086M11.4659 11.2744C11.5897 9.8596 12.8369 8.81305 14.2516 8.93683L14.3937 8.94925C15.8084 9.07303 16.8549 10.3203 16.7311 11.735L16.4884 14.5096C16.3647 15.9244 15.1174 16.971 13.7026 16.8472L13.5607 16.8347C12.1459 16.7109 11.0994 15.4638 11.2231 14.049L11.4659 11.2744ZM1.28658 11.7352C1.16281 10.3204 2.20935 9.07318 3.62411 8.9494L3.76611 8.93697C5.18086 8.8132 6.42809 9.85975 6.55186 11.2745L6.79461 14.0491C6.91838 15.4639 5.87184 16.7112 4.45707 16.8349L4.31508 16.8473C2.90033 16.9711 1.6531 15.9246 1.52932 14.5098L1.28658 11.7352Z"
+                                        stroke="currentColor" stroke-width="1.71429"/>
+                                </svg>
+
+                            </div>
+                            <span>Contacto</span>
+                        </a>
+                    </li>
+                @endif
+                
+                
                 @if (permissionCheck('referral') && showEcommerce())
                     <li>
                         <a href="{{route('referral')}}"
@@ -622,6 +627,8 @@
                         </a>
                     </li>
                 @endif
+                
+                
 
             </ul>
         </div>

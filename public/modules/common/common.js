@@ -1,9 +1,7 @@
 function CRMTableThreeReactive(){
     if ($('.Crm_table_active3').length) {
         $('.Crm_table_active3').DataTable({
-            bLengthChange: true,
-            "lengthChange": true,
-            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            bLengthChange: false,
             "bDestroy": true,
             language: {
                 search: "<i class='ti-search'></i>",
@@ -13,7 +11,7 @@ function CRMTableThreeReactive(){
                     previous: "<i class='ti-arrow-left'></i>"
                 }
             },
-            dom: 'Blfrtip',
+            dom: 'Bfrtip',
             buttons: [
                 {
                     extend: 'copyHtml5',

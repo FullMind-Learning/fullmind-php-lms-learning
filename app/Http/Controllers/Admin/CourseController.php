@@ -35,14 +35,7 @@ class CourseController extends Controller
         if (Auth::user()->role_id == 1) {
             $subcategories = Course::select('id', 'title')->where('category_id', $category_id)->where('subcategory_id', $subcategory_id)->get();
         } else {
-            $query = Course::select('id', 'title')->where('category_id', $category_id)->where('subcategory_id', $subcategory_id)->get();
-            if (isModuleActive('Organization') && Auth::user()->isOrganization()) {
-                $query->whereHas('user', function ($q) {
-                    $q->where('organization_id', Auth::id());
-                    $q->orWhere('user_id', Auth::id());
-                });
-            }
-            $subcategories = $query->get();
+            $subcategories = Course::select('id', 'title')->where('category_id', $category_id)->where('subcategory_id', $subcategory_id)->where('user_id', Auth::user()->id)->get();
         }
 
         return response()->json([$subcategories]);
@@ -119,7 +112,7 @@ class CourseController extends Controller
 
         try {
             $url1 = $this->saveImage($request->photo);
-            $url1 = !empty($url1) ? $url1 : 'public/demo/category/image/5.png';
+            $url1 = !empty($url1) ? $url1 : 'public/demo/category/thumb/1.png';
 
             $url2 = $this->saveImage($request->thumbnail);
             $url2 = !empty($url2) ? $url2 : 'public/demo/category/thumb/1.png';

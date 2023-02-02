@@ -349,28 +349,18 @@ $('input[type=radio][name=host]').change(function () {
     if (host == "Zoom") {
         $('.zoomSetting').show();
         $('.bbbSetting').hide();
-        $('.InAppLiveClassSetting').hide();
         $('.jitsiSetting').hide();
     } else if (host == "BBB") {
         $('.zoomSetting').hide();
         $('.bbbSetting').show();
-        $('.InAppLiveClassSetting').hide();
         $('.jitsiSetting').hide();
     } else if (host == "Jitsi") {
         $('.zoomSetting').hide();
         $('.bbbSetting').hide();
-        $('.InAppLiveClassSetting').hide();
         $('.jitsiSetting').show();
-    } else if (host == "InAppLiveClass") {
-        $('.zoomSetting').hide();
-        $('.bbbSetting').hide();
-        $('.jitsiSetting').hide();
-        $('.InAppLiveClassSetting').show();
     } else {
         $('.zoomSetting').hide();
         $('.bbbSetting').hide();
-        $('.jitsiSetting').hide();
-        $('.InAppLiveClassSetting').hide();
     }
 });
 

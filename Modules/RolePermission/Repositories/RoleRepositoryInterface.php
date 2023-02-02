@@ -6,8 +6,6 @@ interface RoleRepositoryInterface
 {
     public function all();
 
-    public function allActiveInArray();
-
     public function create(array $data);
 
     public function find($id);

@@ -1,9 +1,6 @@
 <script src="{{asset('public/backend/js/plugin.js')}}"></script>
 
 <script src="{{asset('public/backend/js/jquery-ui.js')}}"></script>
-@if(isModuleActive('Org'))
-    <script src="{{asset('public/js/loadingoverlay.min.js')}}"></script>
-@endif
 
 <script>
     if ($('#main-nav-for-chat').length) {

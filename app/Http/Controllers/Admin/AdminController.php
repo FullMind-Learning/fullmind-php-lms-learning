@@ -34,7 +34,6 @@ class AdminController extends Controller
             $query = User::where('role_id', 3);
             if (isModuleActive('Organization') && Auth::user()->isOrganization()) {
                 $query->where('organization_id', Auth::id());
-                $query->orWhere('id', Auth::id());
             }
             $students = $query->get();
             return view('backend.student.enroll_student', compact('courseId', 'start', 'end', 'enrolls', 'courses', 'students'));
@@ -57,7 +56,6 @@ class AdminController extends Controller
             $query = User::where('role_id', 3);
             if (isModuleActive('Organization') && Auth::user()->isOrganization()) {
                 $query->where('organization_id', Auth::id());
-                $query->orWhere('id', Auth::id());
             }
             $students = $query->get();
             return view('backend.student.cancel_student', compact('courseId', 'start', 'end', 'enrolls', 'courses', 'students'));
@@ -451,12 +449,6 @@ class AdminController extends Controller
         } else {
             $query = CourseEnrolled::with('user', 'course');
 
-            if (isModuleActive('Organization') && Auth::user()->isOrganization()) {
-                $query->whereHas('user', function ($q) {
-                    $q->where('organization_id', Auth::id());
-                    $q->orWhere('user_id', Auth::id());
-                });
-            }
         }
 
 
@@ -511,14 +503,6 @@ class AdminController extends Controller
                 });
         } else {
             $query = CourseCanceled::with('user', 'course');
-
-
-            if (isModuleActive('Organization') && Auth::user()->isOrganization()) {
-                $query->whereHas('user', function ($q) {
-                    $q->where('organization_id', Auth::id());
-                    $q->orWhere('user_id', Auth::id());
-                });
-            }
         }
 
         if (!empty($request->course)) {
